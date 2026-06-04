@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="OFF">
+
+    <Properties>
+        <Property name="ColoredPattern">
+            %d{yyyy-MM-dd HH:mm:ss.SSS}
+            %highlight{%-5level}{FATAL=bg_red white, ERROR=red, WARN=yellow, INFO=green, DEBUG=blue, TRACE=magenta}
+            %highlight{[%t]}{FATAL=cyan, ERROR=cyan, WARN=cyan, INFO=cyan, DEBUG=cyan, TRACE=cyan}
+            %highlight{[%c]}{FATAL=yellow, ERROR=yellow, WARN=yellow, INFO=yellow, DEBUG=yellow, TRACE=yellow}
+            - %highlight{%msg%n}{FATAL=bg_red white, ERROR=red, WARN=yellow, INFO=green, DEBUG=blue, TRACE=magenta}
+        </Property>
+
+        <Property name="DefaultPattern">
+            %d{yyyy-MM-dd HH:mm:ss.SSS} %level [%t] [%c] - %msg%n
+        </Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="consoleAppender" target="SYSTEM_OUT">
+            <PatternLayout pattern="${ColoredPattern}" disableAnsi="false"/>
+        </Console>
+
+        <File name="fileAppender" fileName="target/tests.log">
+            <PatternLayout pattern="${DefaultPattern}"/>
+        </File>
+    </Appenders>
+
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="consoleAppender"/>
+            <AppenderRef ref="fileAppender"/>
+        </Root>
+    </Loggers>
+
+</Configuration>
