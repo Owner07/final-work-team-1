@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testing.org/testng-1.0.dtd">
+<suite thread-count="2"
+       name="Sauce Demo"
+       parallel="tests">
+    <listeners>
+        <listener class-name="utils.AnnotationTransformer"/>
+    </listeners>
+
+    <test name="test 1">
+        <classes>
+            <class name="tests." />
+        </classes>
+    </test>
+
+    <test name="test 2">
+        <classes>
+            <class name="tests." />
+            <class name="tests." />
+        </classes>
+    </test>
+</suite>
