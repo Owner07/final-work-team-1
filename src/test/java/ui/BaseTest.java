@@ -12,6 +12,7 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
 import wrappers.Input;
+import wrappers.Select;
 
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
@@ -69,12 +70,11 @@ public class BaseTest {
     public void checkOpenPage() {
         log.info("Login to Start page with creds: user {} and password {}", user, password);
         Selenide.open("/");
-        Input.write("Email", user);
-        Input.write("Password", password);
+        Input.writeLogin("email", user);
+        Input.writeLogin("password", password);
         $(byText("GO")).click();
         Selenide.confirm();
-        $("#basic-nav-dropdown").click();
-        $(byText("Read all")).click();
+        Select.selectByText("Users","Read all");
         assertEquals($(byText("Reload")).getText(), "Reload");
     }
 
