@@ -20,7 +20,7 @@
             <PatternLayout pattern="${ColoredPattern}" disableAnsi="false"/>
         </Console>
 
-        <File name="fileAppender" fileName="target/tests.log">
+        <File name="fileAppender" fileName="target/ui.log">
             <PatternLayout pattern="${DefaultPattern}"/>
         </File>
     </Appenders>

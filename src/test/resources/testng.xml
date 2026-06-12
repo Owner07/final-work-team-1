@@ -9,14 +9,14 @@
 
     <test name="test 1">
         <classes>
-            <class name="tests." />
+            <class name="ui." />
         </classes>
     </test>
 
     <test name="test 2">
         <classes>
-            <class name="tests." />
-            <class name="tests." />
+            <class name="ui." />
+            <class name="ui." />
         </classes>
     </test>
 </suite>

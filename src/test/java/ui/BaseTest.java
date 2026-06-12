@@ -1,8 +1,5 @@
-package tests;
+package ui;
 
-import com.codeborne.selenide.Condition;
-import org.openqa.selenium.Alert;
-import org.testng.Assert;
 import utils.PropertyReader;
 import utils.TestListener;
 import com.codeborne.selenide.Configuration;
@@ -15,12 +12,7 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
 
-import java.time.Duration;
-
-import static com.browserup.bup.mitmproxy.MitmProxyProcessManager.MitmProxyLoggingLevel.alert;
-import static com.codeborne.selenide.Condition.interactable;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selectors.shadowCss;
 import static com.codeborne.selenide.Selenide.*;
 import static org.testng.Assert.assertEquals;
 
