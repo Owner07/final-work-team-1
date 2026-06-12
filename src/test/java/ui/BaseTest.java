@@ -11,6 +11,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
+import wrappers.Input;
 
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
@@ -68,8 +69,8 @@ public class BaseTest {
     public void checkOpenPage() {
         log.info("Login to Start page with creds: user {} and password {}", user, password);
         Selenide.open("/");
-        $("[name=email]").setValue(user);
-        $("[name=password]").setValue(password);
+        Input.write("Email", user);
+        Input.write("Password", password);
         $(byText("GO")).click();
         Selenide.confirm();
         $("#basic-nav-dropdown").click();
