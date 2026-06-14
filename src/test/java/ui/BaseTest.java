@@ -38,6 +38,7 @@
             Configuration.timeout = 3000;
             Configuration.baseUrl = "http://82.142.167.37:4881";
             Configuration.clickViaJs = true;
+            Configuration.headless = true;
 
             if (browser.equalsIgnoreCase("chrome")) {
                 ChromeOptions options = new ChromeOptions();
