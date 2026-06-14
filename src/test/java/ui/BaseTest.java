@@ -42,11 +42,17 @@
             if (browser.equalsIgnoreCase("chrome")) {
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("--start-maximized");
+                options.addArguments("--no-sandbox");
+                options.addArguments("--disable-dev-shm-usage");
+                options.addArguments("--disable-gpu");
                 Configuration.browserCapabilities = options;
             }
             if (browser.equalsIgnoreCase("edge")) {
                 EdgeOptions options1 = new EdgeOptions();
                 options1.addArguments("--start-maximized");
+                options1.addArguments("--no-sandbox");
+                options1.addArguments("--disable-dev-shm-usage");
+                options1.addArguments("--disable-gpu");
                 Configuration.browserCapabilities = options1;
             }
 
