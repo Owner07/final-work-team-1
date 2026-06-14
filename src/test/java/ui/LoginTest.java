@@ -37,7 +37,7 @@ public class LoginTest extends BaseTest{
         return new Object[][]{
                 {"", user, "Incorrect input data"},
                 {password, "", "Incorrect input data"},
-                {"test", "test", "Incorrect input data"}
+                {"test", "test", "Incorrect input data1"}
         };
     }
 

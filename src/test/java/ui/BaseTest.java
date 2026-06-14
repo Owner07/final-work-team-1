@@ -1,7 +1,10 @@
     package ui;
 
+    import com.codeborne.selenide.logevents.SelenideLogger;
+    import io.qameta.allure.selenide.AllureSelenide;
     import org.testng.ITestResult;
     import pages.LoginPage;
+    import utils.ScreenshotListener;
     import utils.TestListener;
     import com.codeborne.selenide.Configuration;
     import com.codeborne.selenide.Selenide;
@@ -14,7 +17,7 @@
     import org.testng.annotations.*;
 
     @Log4j2
-    @Listeners({TestListener.class, AllureTestNg.class})
+    @Listeners({AllureTestNg.class, ScreenshotListener.class, TestListener.class})
     public class BaseTest {
 
        protected LoginPage loginPage;
@@ -28,7 +31,11 @@
         @Owner("Вейт Владимир")
         public void setUp(@Optional("chrome") String browser, ITestContext iTestContext) {
             log.info("Initialization driver and open browser");
-            Configuration.timeout = 30000;
+            SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
+                    .screenshots(true)      // автоматически делать скриншоты
+                    .savePageSource(true)   // сохранять HTML
+                    .includeSelenideSteps(true)); // логировать шаги
+            Configuration.timeout = 3000;
             Configuration.baseUrl = "http://82.142.167.37:4881";
             Configuration.clickViaJs = true;
 
@@ -55,6 +62,6 @@
         @AfterMethod(alwaysRun = true, description = "Обязательное закрытие драйвера")
         public void tearDown(ITestResult result) {
             log.info("Closed browser");
-            Selenide.closeWebDriver();
+//            Selenide.closeWebDriver();
         }
     }
