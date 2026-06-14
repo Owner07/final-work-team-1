@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testing.org/testng-1.0.dtd">
 <suite thread-count="2"
-       name="Sauce Demo"
+       name="final-work-team-1"
        parallel="tests">
     <listeners>
         <listener class-name="utils.AnnotationTransformer"/>
@@ -9,14 +9,7 @@
 
     <test name="test 1">
         <classes>
-            <class name="ui." />
-        </classes>
-    </test>
-
-    <test name="test 2">
-        <classes>
-            <class name="ui." />
-            <class name="ui." />
+            <class name="ui.LoginTest" />
         </classes>
     </test>
 </suite>
