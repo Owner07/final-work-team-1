@@ -2,7 +2,6 @@
 
     import org.testng.ITestResult;
     import pages.LoginPage;
-    import utils.PropertyReader;
     import utils.TestListener;
     import com.codeborne.selenide.Configuration;
     import com.codeborne.selenide.Selenide;
@@ -13,12 +12,6 @@
     import org.openqa.selenium.edge.EdgeOptions;
     import org.testng.ITestContext;
     import org.testng.annotations.*;
-    import wrappers.Input;
-    import wrappers.Select;
-
-    import static com.codeborne.selenide.Selectors.byText;
-    import static com.codeborne.selenide.Selenide.*;
-    import static org.testng.Assert.assertEquals;
 
     @Log4j2
     @Listeners({TestListener.class, AllureTestNg.class})

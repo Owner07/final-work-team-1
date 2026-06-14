@@ -30,6 +30,12 @@ public class LoginPage extends BasePage{
     }
 
     public LoginPage login(String user, String password) {
+        // Проверяем, что страница логина открыта
+        if (!isPageOpened()) {
+            log.error("Login page is not opened. Current URL: {}", Selenide.webdriver().driver().url());
+            log.error("Authorization element is not visible on the page");
+            throw new IllegalStateException("Login page is not opened. Cannot perform login.");
+        }
         log.info("Logging in with user: {}", user);
         Input.writeLogin("email", user);
         Input.writeLogin("password", password);

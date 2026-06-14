@@ -55,7 +55,8 @@ public class LoginTest extends BaseTest{
     public void negativeLogin(String user, String password, String expectedErrorMessage) {
         log.info("Negative login test - user: '{}', expected error: '{}'", user, expectedErrorMessage);
         loginPage.open()
-                .login(user, password);
+                .login(user, password)
+                .getGoButton().click();
         String actualConfirmMessage = Selenide.confirm();
         log.info("Actual confirm message: {}", actualConfirmMessage);
         assertEquals(actualConfirmMessage, expectedErrorMessage,
