@@ -44,7 +44,6 @@
                 options.addArguments("--start-maximized");
                 Configuration.browserCapabilities = options;
             }
-
             if (browser.equalsIgnoreCase("edge")) {
                 EdgeOptions options1 = new EdgeOptions();
                 options1.addArguments("--start-maximized");
@@ -62,6 +61,6 @@
         @AfterMethod(alwaysRun = true, description = "Обязательное закрытие драйвера")
         public void tearDown(ITestResult result) {
             log.info("Closed browser");
-//            Selenide.closeWebDriver();
+            Selenide.closeWebDriver();
         }
     }
