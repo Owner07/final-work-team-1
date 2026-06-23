@@ -51,8 +51,6 @@ public class BaseTest {
         Configuration.baseUrl = "http://82.142.167.37:4881";
         Configuration.clickViaJs = true;
         Configuration.headless = true;
-        Configuration.pageLoadTimeout = 30000;
-        Configuration.pageLoadStrategy = "eager";
 
         // Устанавливаем браузер
         Configuration.browser = browser.toLowerCase();
