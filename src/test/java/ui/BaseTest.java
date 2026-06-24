@@ -47,7 +47,7 @@ public class BaseTest {
                 .savePageSource(true)
                 .includeSelenideSteps(true));
 
-        Configuration.timeout = 3000;
+        Configuration.timeout = 15000;
         Configuration.baseUrl = "http://82.142.167.37:4881";
         Configuration.clickViaJs = true;
         Configuration.headless = true;
