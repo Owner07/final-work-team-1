@@ -7,7 +7,7 @@ pipeline {
     }
 
     parameters{
-        choice(choices: ['chrome', 'edge'], description: 'Хром по дефолту', name: 'BROWSER')
+        choice(choices: ['chrome', 'edge'], description: 'Выберите браузер', name: 'BROWSER')
     }
 
     stages {

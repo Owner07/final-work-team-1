@@ -1,45 +1,45 @@
 package ui;
 
-import com.codeborne.selenide.logevents.SelenideLogger;
-import io.qameta.allure.selenide.AllureSelenide;
-import org.testng.ITestResult;
-import pages.LoginPage;
-import utils.ScreenshotListener;
-import utils.TestListener;
+import annotations.NoLogin;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
+import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.*;
+import io.qameta.allure.selenide.AllureSelenide;
 import io.qameta.allure.testng.AllureTestNg;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.testng.ITestContext;
+import org.testng.ITestResult;
 import org.testng.annotations.*;
+import pages.LoginPage;
+import utils.PropertyReader;
+import utils.ScreenshotListener;
+import utils.TestListener;
+
+import java.lang.reflect.Method;
 
 @Log4j2
 @Listeners({AllureTestNg.class, ScreenshotListener.class, TestListener.class})
 public class BaseTest {
 
+    private static final String user = PropertyReader.getProperty("user");
+    private static final String password = PropertyReader.getProperty("password");
+
     protected LoginPage loginPage;
 
     @Parameters({"browser"})
     @BeforeMethod(alwaysRun = true, description = "Настройки для драйвера")
-    @Description("Инициализация драйвера + опции")
-    @Epic("E2E")
-    @Story("Инициализация + опции")
-    @Severity(SeverityLevel.CRITICAL)
-    @Owner("Вейт Владимир")
-    public void setUp(@Optional("chrome") String browser, ITestContext iTestContext) {
+    public void setUp(@Optional("chrome") String browser, ITestContext iTestContext, Method method) {
         log.info("Initialization driver and open browser for: " + browser);
 
-        // Закрываем предыдущий драйвер, если есть
         if (WebDriverRunner.hasWebDriverStarted()) {
             log.info("Closing existing webdriver before starting new test");
             Selenide.closeWebDriver();
         }
 
-        // Сбрасываем конфигурацию браузера
         Configuration.browserCapabilities = null;
 
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
@@ -51,8 +51,6 @@ public class BaseTest {
         Configuration.baseUrl = "http://82.142.167.37:4881";
         Configuration.clickViaJs = true;
         Configuration.headless = true;
-
-        // Устанавливаем браузер
         Configuration.browser = browser.toLowerCase();
 
         if (browser.equalsIgnoreCase("chrome")) {
@@ -64,8 +62,7 @@ public class BaseTest {
             options.addArguments("--remote-allow-origins=*");
             Configuration.browserCapabilities = options;
             log.info("Chrome options configured");
-        }
-        else if (browser.equalsIgnoreCase("edge")) {
+        } else if (browser.equalsIgnoreCase("edge")) {
             EdgeOptions options = new EdgeOptions();
             options.addArguments("--start-maximized");
             options.addArguments("--no-sandbox");
@@ -76,13 +73,22 @@ public class BaseTest {
         }
 
         loginPage = new LoginPage();
+
+        // Проверяем, есть ли аннотация @NoLogin на тестовом методе
+        boolean noLogin = method.isAnnotationPresent(NoLogin.class);
+
+        if (noLogin) {
+            log.info("SKIP LOGIN: Test method '{}' has @NoLogin annotation", method.getName());
+        } else {
+            // По умолчанию - выполняем логин
+            log.info("Login to Start page with creds: user {} and password {}", user, password);
+            loginPage.open()
+                    .login(user, password)
+                    .waitForPageLoaded();
+            log.info("Successful login");
+        }
     }
 
-    @Description("Выход из драйвера")
-    @Epic("E2E")
-    @Story("Закрытие драйвера")
-    @Severity(SeverityLevel.CRITICAL)
-    @Owner("Вейт Владимир")
     @AfterMethod(alwaysRun = true, description = "Обязательное закрытие драйвера")
     public void tearDown(ITestResult result) {
         log.info("Closed browser");

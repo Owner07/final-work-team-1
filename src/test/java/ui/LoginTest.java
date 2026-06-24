@@ -1,5 +1,6 @@
 package ui;
 
+import annotations.NoLogin;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.*;
 import lombok.extern.log4j.Log4j2;
@@ -13,34 +14,29 @@ import static com.codeborne.selenide.Selenide.$;
 import static org.testng.Assert.assertEquals;
 
 @Log4j2
-public class LoginTest extends BaseTest{
+public class LoginTest extends BaseTest {
 
-    private static final String user = PropertyReader.getProperty("user");
-    private static final String password = PropertyReader.getProperty("password");
+    private static final String USER = PropertyReader.getProperty("user");
+    private static final String PASSWORD = PropertyReader.getProperty("password");
 
     @Test
     @Description("Проверка на удачный логин в системе дипломного проекта")
     @Severity(SeverityLevel.CRITICAL)
     public void checkOpenPage() {
-        log.info("Login to Start page with creds: user {} and password {}",
-                user, password);
-        loginPage.open()
-                .login(user, password)
-                .waitForPageLoaded();
-        log.info("Successful login");
-        Select.selectByText("Users","Read all");
+        Select.selectByText("Houses", "Read all");
         assertEquals($(byText("Reload")).getText(), "Reload");
     }
 
     @DataProvider(name = "Тестовые данные для негативного логина")
     public Object[][] loginData() {
         return new Object[][]{
-                {"", user, "Incorrect input data"},
-                {password, "", "Incorrect input data"},
+                {"", USER, "Incorrect input data"},
+                {PASSWORD, "", "Incorrect input data"},
                 {"test", "test", "Incorrect input data"}
         };
     }
 
+    @NoLogin
     @Description("Проверка логина с не валидными кредами")
     @Epic("E2E")
     @Feature("Логин в дипломном проекте: негатив")
