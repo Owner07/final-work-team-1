@@ -32,3 +32,15 @@ public class TableValue {
                 .texts();
     }
 }
+
+/*
+    // Получаем список всех ID
+List<String> allIds = TableValue.getAllValues(TableValue.LODGERS_TABLE, "ID");
+
+Подсказки для проверок
+assertTrue(allIds.contains("1"));                    // есть ли значение
+assertEquals(3, allIds.size());                      // количество записей
+assertFalse(allIds.isEmpty());                       // не пустой ли список
+assertEquals("1", allIds.get(0));                    // первое значение
+assertTrue(allIds.stream().allMatch(id -> id.matches("\\d+"))); // все числа
+ */
