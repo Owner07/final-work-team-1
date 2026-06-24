@@ -27,6 +27,9 @@ public class DbConnection {
         }
     }
 
+    public Connection getConnection() {
+        return connection;
+    }
 
         public ResultSet select (String query){
             try {
