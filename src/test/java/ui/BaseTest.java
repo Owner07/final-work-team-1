@@ -3,6 +3,7 @@ package ui;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.testng.ITestResult;
+import pages.CarsPage;
 import pages.LoginPage;
 import utils.ScreenshotListener;
 import utils.TestListener;
@@ -22,6 +23,7 @@ import org.testng.annotations.*;
 public class BaseTest {
 
     protected LoginPage loginPage;
+    protected CarsPage carsPage;
 
     @Parameters({"browser"})
     @BeforeMethod(alwaysRun = true, description = "Настройки для драйвера")
@@ -50,7 +52,7 @@ public class BaseTest {
         Configuration.timeout = 3000;
         Configuration.baseUrl = "http://82.142.167.37:4881";
         Configuration.clickViaJs = true;
-        Configuration.headless = true;
+        Configuration.headless = false;
 
         // Устанавливаем браузер
         Configuration.browser = browser.toLowerCase();
@@ -76,6 +78,7 @@ public class BaseTest {
         }
 
         loginPage = new LoginPage();
+        carsPage = new CarsPage();
     }
 
     @Description("Выход из драйвера")

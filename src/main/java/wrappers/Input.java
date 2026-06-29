@@ -12,4 +12,8 @@ public class Input {
     public static void writeLogin(String fieldName, String text) {
         $(String.format("[name='%s']", fieldName)).setValue(text);
     }
+
+    public static void writeById(String id, String text) {
+        $("#" + id).setValue(text);
+    }
 }
