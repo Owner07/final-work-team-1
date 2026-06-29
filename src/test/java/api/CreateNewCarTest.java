@@ -1,4 +1,4 @@
-package ui.cars;
+package api;
 
 import models.cars.create.CarCreateRq;
 import models.cars.create.CarCreateRs;
@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 import static adapters.CarAdapter.*;
 import static org.testng.Assert.assertEquals;
 
-public class APICreateNewTest {
+public class CreateNewCarTest {
 
     CarCreateRq carCreate = CarCreateRq.builder()
             .engineType("Diesel")
