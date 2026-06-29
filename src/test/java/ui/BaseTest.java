@@ -14,6 +14,7 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
+import pages.HousePage;
 import pages.LoginPage;
 import utils.PropertyReader;
 import utils.ScreenshotListener;
@@ -29,8 +30,15 @@ public class BaseTest {
     private static final String password = PropertyReader.getProperty("password");
 
     protected LoginPage loginPage;
+    protected HousePage housePage;
 
     @Parameters({"browser"})
+    @Description("Создание настроек браузера")
+    @Epic("E2E")
+    @Feature("Общие настройки")
+    @Story("Позитив")
+    @Severity(SeverityLevel.CRITICAL)
+    @Owner("Вейт Владимир")
     @BeforeMethod(alwaysRun = true, description = "Настройки для драйвера")
     public void setUp(@Optional("chrome") String browser, ITestContext iTestContext, Method method) {
         log.info("Initialization driver and open browser for: " + browser);
@@ -50,7 +58,7 @@ public class BaseTest {
         Configuration.timeout = 15000;
         Configuration.baseUrl = "http://82.142.167.37:4881";
         Configuration.clickViaJs = true;
-        Configuration.headless = true;
+        Configuration.headless = false;
         Configuration.browser = browser.toLowerCase();
 
         if (browser.equalsIgnoreCase("chrome")) {
@@ -73,6 +81,7 @@ public class BaseTest {
         }
 
         loginPage = new LoginPage();
+        housePage = new HousePage();
 
         // Проверяем, есть ли аннотация @NoLogin на тестовом методе
         boolean noLogin = method.isAnnotationPresent(NoLogin.class);
@@ -90,6 +99,12 @@ public class BaseTest {
     }
 
     @AfterMethod(alwaysRun = true, description = "Обязательное закрытие драйвера")
+    @Description("Обязательно закрытие браузера")
+    @Epic("E2E")
+    @Feature("Закрытие браузера")
+    @Story("Позитив")
+    @Severity(SeverityLevel.NORMAL)
+    @Owner("Вейт Владимир")
     public void tearDown(ITestResult result) {
         log.info("Closed browser");
         if (WebDriverRunner.hasWebDriverStarted()) {
