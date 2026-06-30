@@ -7,6 +7,8 @@ import lombok.extern.log4j.Log4j2;
 import models.users.create.UserCreateRequest;
 import models.users.create.UserCreateResponse;
 import models.users.get.UserInfoResponse;
+import models.users.update.UserUpdateRequest;
+import models.users.update.UserUpdateResponse;
 
 @Log4j2
 public class UsersAdapter extends BaseAdapter {
@@ -88,5 +90,27 @@ public class UsersAdapter extends BaseAdapter {
                 .then()
                 .extract()
                 .response();
+    }
+    @Step("Обновить пользователя PUT /user/{userId}")
+    public Response updateUser(Long userId, UserUpdateRequest request) {
+        log.info("PUT {} body={}", USER_BY_ID, request);
+
+        return authorizedJsonRequest()
+                .body(request)
+                .pathParam("userId", userId)
+                .when()
+                .put(USER_BY_ID)
+                .then()
+                .extract()
+                .response();
+    }
+
+    @Step("Обновить пользователя PUT /user/{userId} и получить DTO")
+    public UserUpdateResponse updateUserAndGetDto(Long userId, UserUpdateRequest request) {
+        return updateUser(userId, request)
+                .then()
+                .statusCode(202) // Обычно PUT возвращает 200 или 202
+                .extract()
+                .as(UserUpdateResponse.class);
     }
 }
