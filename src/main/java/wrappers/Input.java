@@ -5,7 +5,6 @@ import com.codeborne.selenide.Selenide;
 import lombok.extern.log4j.Log4j2;
 
 import java.time.Duration;
-import java.util.List;
 
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.$x;
@@ -13,13 +12,15 @@ import static com.codeborne.selenide.Selenide.$x;
 @Log4j2
 public class Input {
 
+    private static final Duration TIMEOUT = Duration.ofSeconds(3);
+
     public static void writeLogin(String fieldName, String text) {
         $(String.format("[name='%s']", fieldName)).setValue(text);
     }
 
     public static void writeById(String id, String text) {
         $("#" + id).setValue(text);
-    private static final Duration TIMEOUT = Duration.ofSeconds(3);
+    }
 
     public static void fillByColumnName(String columnName, String value) {
         int index = $$x("//thead/tr/th").texts().indexOf(columnName + ":");
