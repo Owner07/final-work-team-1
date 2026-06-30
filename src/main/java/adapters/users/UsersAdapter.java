@@ -112,5 +112,6 @@ public class UsersAdapter extends BaseAdapter {
                 .statusCode(202) // Обычно PUT возвращает 200 или 202
                 .extract()
                 .as(UserUpdateResponse.class);
+
     }
 }

@@ -16,4 +16,5 @@ public class UserUpdateRequest {
     private Integer age;
     private String sex;
     private Double money;
+
 }

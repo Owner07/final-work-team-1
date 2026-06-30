@@ -139,5 +139,6 @@ public class UsersUiTest extends BaseTest {
         }
 
         log.info("Finish createUserViaUiAndCheckInReadAllTest");
+
     }
 }

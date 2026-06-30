@@ -269,5 +269,6 @@ public class UsersApiTest extends BaseTest {
         }
 
         log.info("Finish deleteUserApiTest");
+
     }
 }
