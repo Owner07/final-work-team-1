@@ -9,6 +9,8 @@ import models.users.create.UserCreateResponse;
 import models.users.db.UserDbEntity;
 import models.users.get.UserGetResponse;
 import models.users.get.UserInfoResponse;
+import models.users.update.UserUpdateRequest;
+import models.users.update.UserUpdateResponse;
 import org.testng.annotations.Test;
 import utils.UserTestDataFactory;
 
@@ -201,5 +203,72 @@ public class UsersApiTest extends BaseTest {
                     .then()
                     .statusCode(204);
         }
+    }
+    @Test
+    @Story("Update")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Обновление пользователя через API PUT /user/{userId}")
+    public void updateUserApiTest() {
+        log.info("Start updateUserApiTest");
+
+        Long createdUserId = null;
+
+        try {
+            UserCreateRequest createRequest = UserTestDataFactory.createValidUser();
+            UserCreateResponse createdUser = usersAdapter.createUserAndGetDto(createRequest);
+            createdUserId = createdUser.getId();
+
+            UserUpdateRequest updateRequest = UserUpdateRequest.builder()
+                    .id(createdUserId)
+                    .firstName("UpdatedFirst")
+                    .secondName("UpdatedSecond")
+                    .age(30)
+                    .sex("MALE")
+                    .money(50000.0)
+                    .build();
+
+            UserUpdateResponse updatedUser = usersAdapter.updateUserAndGetDto(createdUserId, updateRequest);
+
+            assertEquals(updatedUser.getId(), createdUserId, "id не совпал");
+            assertEquals(updatedUser.getFirstName(), "UpdatedFirst", "firstName не совпал");
+            assertEquals(updatedUser.getSecondName(), "UpdatedSecond", "secondName не совпал");
+            assertEquals(updatedUser.getAge(), 30, "age не совпал");
+            assertEquals(updatedUser.getSex(), "MALE", "sex не совпал");
+            assertEquals(updatedUser.getMoney(), 50000.0, "money не совпал");
+
+        } finally {
+            deleteUserIfCreated(createdUserId);
+        }
+
+        log.info("Finish updateUserApiTest");
+    }
+
+    @Test
+    @Story("Delete")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Удаление пользователя через API DELETE /user/{userId}")
+    public void deleteUserApiTest() {
+        log.info("Start deleteUserApiTest");
+
+        UserCreateRequest createRequest = UserTestDataFactory.createValidUser();
+        UserCreateResponse createdUser = usersAdapter.createUserAndGetDto(createRequest);
+        Long createdUserId = createdUser.getId();
+
+        try {
+            usersAdapter.deleteUser(createdUserId)
+                    .then()
+                    .statusCode(204);
+
+            // Проверяем, что пользователь удален (GET должен вернуть 204)
+            usersAdapter.getUserById(createdUserId)
+                    .then()
+                    .statusCode(204);
+        } finally {
+            // На случай, если тест упадет до удаления, пытаемся удалить еще раз
+            usersAdapter.deleteUser(createdUserId);
+        }
+
+        log.info("Finish deleteUserApiTest");
+
     }
 }
