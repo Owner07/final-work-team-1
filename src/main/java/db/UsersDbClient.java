@@ -2,7 +2,7 @@ package db;
 
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
-import models.users.db.UserDbEntity;
+import api.models.users.db.UserDbEntity;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

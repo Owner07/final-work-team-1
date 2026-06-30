@@ -1,14 +1,13 @@
 package api;
 
 import io.qameta.allure.*;
-import models.cars.create.CarCreateRq;
-import models.cars.create.CarCreateRs;
-import models.cars.get.CarGetRs;
-import models.cars.update.CarUpdateRq;
-import models.cars.update.CarUpdateRs;
+import api.models.cars.create.CarCreateRq;
+import api.models.cars.create.CarCreateRs;
+import api.models.cars.get.CarGetRs;
+import api.models.cars.update.CarUpdateRq;
+import api.models.cars.update.CarUpdateRs;
 import org.testng.annotations.Test;
 
-import static adapters.CarAdapter.*;
 import static org.testng.Assert.assertEquals;
 
 public class CreateNewCarTest {

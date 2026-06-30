@@ -1,14 +1,14 @@
 package api;
 
-import adapters.users.UsersAdapter;
+import api.adapters.users.UsersAdapter;
 import db.UsersDbClient;
 import io.qameta.allure.*;
 import lombok.extern.log4j.Log4j2;
-import models.users.create.UserCreateRequest;
-import models.users.create.UserCreateResponse;
-import models.users.db.UserDbEntity;
-import models.users.get.UserGetResponse;
-import models.users.get.UserInfoResponse;
+import api.models.users.create.UserCreateRequest;
+import api.models.users.create.UserCreateResponse;
+import api.models.users.db.UserDbEntity;
+import api.models.users.get.UserGetResponse;
+import api.models.users.get.UserInfoResponse;
 import org.testng.annotations.Test;
 import utils.UserTestDataFactory;
 
@@ -20,7 +20,7 @@ import static org.testng.Assert.*;
 @Log4j2
 @Epic("PFLB Test-API")
 @Feature("Users")
-public class UsersApiTest extends BaseTest {
+public class UsersApiTest {
 
     private final UsersAdapter usersAdapter = new UsersAdapter();
     private final UsersDbClient usersDbClient = new UsersDbClient();

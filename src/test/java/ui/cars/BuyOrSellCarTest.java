@@ -1,10 +1,10 @@
 package ui.cars;
 
-import dto.Car;
-import dto.CarFactory;
+import ui.dto.Car;
+import ui.dto.CarFactory;
 import io.qameta.allure.*;
 import org.testng.annotations.Test;
-import ui.BaseTest;
+import base.BaseTest;
 import utils.PropertyReader;
 
 import static com.codeborne.selenide.Selenide.$;

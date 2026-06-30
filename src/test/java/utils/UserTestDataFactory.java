@@ -1,7 +1,7 @@
 package utils;
 
 import com.github.javafaker.Faker;
-import models.users.create.UserCreateRequest;
+import api.models.users.create.UserCreateRequest;
 
 import java.util.Locale;
 import java.util.concurrent.ThreadLocalRandom;

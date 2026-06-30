@@ -2,7 +2,7 @@ package ui.cars;
 
 import io.qameta.allure.*;
 import org.testng.annotations.Test;
-import ui.BaseTest;
+import base.BaseTest;
 import utils.PropertyReader;
 
 import static org.testng.Assert.assertEquals;

@@ -4,12 +4,12 @@
        name="final-work-team-1"
        parallel="tests">
     <listeners>
-        <listener class-name="utils.AnnotationTransformer"/>
+        <listener class-name="listeners.AnnotationTransformer"/>
     </listeners>
 
     <test name="test 1">
         <classes>
-            <class name="ui.LoginTest" />
+            <class name="ui.login.LoginTest" />
         </classes>
     </test>
 </suite>

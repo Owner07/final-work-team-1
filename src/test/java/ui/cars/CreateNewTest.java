@@ -1,12 +1,12 @@
 package ui.cars;
 
-import dto.Car;
-import dto.CarFactory;
+import ui.dto.Car;
+import ui.dto.CarFactory;
 import io.qameta.allure.*;
 import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import ui.BaseTest;
+import base.BaseTest;
 import utils.PropertyReader;
 
 import static com.codeborne.selenide.Selenide.$;
