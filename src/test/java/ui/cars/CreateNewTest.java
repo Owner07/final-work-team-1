@@ -8,7 +8,6 @@ import ui.BaseTest;
 import utils.PropertyReader;
 
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.sleep;
 import static org.testng.Assert.assertEquals;
 
 public class CreateNewTest extends BaseTest {
@@ -35,7 +34,6 @@ public class CreateNewTest extends BaseTest {
                 car.getModel(),
                 car.getPrice()
         );
-        sleep(2000);
         String actualStatus = $("button.status.btn.btn-secondary").getText();
         assertEquals(actualStatus, "Status: Successfully pushed, code: 201",
                 "Статус не соответствует ожидаемому");
@@ -59,7 +57,6 @@ public class CreateNewTest extends BaseTest {
                 .login(user, password);
         carsPage.openCreateNew();
         carsPage.addNewCar(engine, mark, model, price);
-        sleep(2000);
         String actualStatus = $("button.status.btn.btn-secondary").getText();
         assertEquals(actualStatus, errorMessage, "Сообщение об ошибке не соответствует ожидаемому");
     }
@@ -82,7 +79,6 @@ public class CreateNewTest extends BaseTest {
                 .login(user, password);
         carsPage.openCreateNew();
         carsPage.addNewCar(engine, mark, model, price);
-        sleep(2000);
         String actualStatus = $("button.status.btn.btn-secondary").getText();
         assertEquals(actualStatus, errorMessage, "Сообщение об ошибке не соответствует ожидаемому");
     }
