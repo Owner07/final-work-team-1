@@ -1,9 +1,12 @@
 package adapters;
 
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import utils.PropertyReader;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.oauth2;
 
 public class BaseAdapter {
     protected static final String BASE_API_URL = "http://82.142.167.37:4879";
@@ -28,4 +31,10 @@ public class BaseAdapter {
         return authorizedRequest()
                 .contentType("application/json");
     }
+  
+  public static RequestSpecification specCar = new RequestSpecBuilder()
+            .setContentType(ContentType.JSON)
+            .setBaseUri("http://82.142.167.37:4879")
+            .setAuth(oauth2(TOKEN))
+            .build();
 }
