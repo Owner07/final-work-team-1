@@ -5,11 +5,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+import java.util.Map;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserGetResponse {
+public class UserInfoResponse {
 
     private Long id;
     private String firstName;
@@ -17,4 +20,8 @@ public class UserGetResponse {
     private Integer age;
     private String sex;
     private Double money;
+    private Long house;
+
+    // Временно, пока CarDto делает другой участник
+    private List<Map<String, Object>> cars;
 }
