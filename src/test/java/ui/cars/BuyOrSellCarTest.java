@@ -2,6 +2,7 @@ package ui.cars;
 
 import dto.Car;
 import dto.CarFactory;
+import io.qameta.allure.*;
 import org.testng.annotations.Test;
 import ui.BaseTest;
 import utils.PropertyReader;
@@ -16,6 +17,14 @@ public class BuyOrSellCarTest extends BaseTest {
     Car car = CarFactory.getCar();
 
     @Test
+    @Description("Проверка открытия страницы Buy or sell car")
+    @Epic("E2E")
+    @Feature("Покупка и продажа авто")
+    @Story("Страница с покупкой и продажей авто")
+    @Severity(SeverityLevel.BLOCKER)
+    @TmsLink("CARUI-1")
+    @Issue("CARUI-1")
+    @Owner("Алексеев Данил")
     public void openBuyOrSellCar() {
         loginPage.open()
                 .login(user, password);
@@ -23,6 +32,14 @@ public class BuyOrSellCarTest extends BaseTest {
     }
 
     @Test
+    @Description("Проверка покупки авто")
+    @Epic("E2E")
+    @Feature("Покупка авто")
+    @Story("Страница с покупкой и продажей авто")
+    @Severity(SeverityLevel.BLOCKER)
+    @TmsLink("CARUI-2")
+    @Issue("CARUI-2")
+    @Owner("Алексеев Данил")
     public void buyCar() {
         loginPage.open()
                 .login(user, password);
@@ -42,6 +59,14 @@ public class BuyOrSellCarTest extends BaseTest {
     }
 
     @Test
+    @Description("Покупка несуществующего авто несуществующему пользователю")
+    @Epic("SMOKE")
+    @Feature("Покупка авто")
+    @Story("Страница с покупкой и продажей авто")
+    @Severity(SeverityLevel.NORMAL)
+    @TmsLink("CARUI-3")
+    @Issue("CARUI-3")
+    @Owner("Алексеев Данил")
     public void invalidBuyCar() {
         loginPage.open()
                 .login(user, password);
