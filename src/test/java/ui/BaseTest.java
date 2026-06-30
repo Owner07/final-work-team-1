@@ -1,5 +1,12 @@
 package ui;
 
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
+import org.testng.ITestResult;
+import pages.CarsPage;
+import pages.LoginPage;
+import utils.ScreenshotListener;
+import utils.TestListener;
 import annotations.NoLogin;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
@@ -30,6 +37,7 @@ public class BaseTest {
     private static final String password = PropertyReader.getProperty("password");
 
     protected LoginPage loginPage;
+    protected CarsPage carsPage;
     protected HousePage housePage;
 
     @Parameters({"browser"})
@@ -59,6 +67,8 @@ public class BaseTest {
         Configuration.baseUrl = "http://82.142.167.37:4881";
         Configuration.clickViaJs = true;
         Configuration.headless = false;
+
+        // Устанавливаем браузер
         Configuration.browser = browser.toLowerCase();
 
         if (browser.equalsIgnoreCase("chrome")) {
@@ -81,6 +91,7 @@ public class BaseTest {
         }
 
         loginPage = new LoginPage();
+        carsPage = new CarsPage();
         housePage = new HousePage();
 
         // Проверяем, есть ли аннотация @NoLogin на тестовом методе

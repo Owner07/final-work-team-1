@@ -28,4 +28,10 @@ public class BaseAdapter {
         return authorizedRequest()
                 .contentType("application/json");
     }
+  
+  public static RequestSpecification specCar = new RequestSpecBuilder()
+            .setContentType(ContentType.JSON)
+            .setBaseUri("http://82.142.167.37:4879")
+            .setAuth(oauth2(TOKEN))
+            .build();
 }
