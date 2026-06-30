@@ -1,5 +1,6 @@
 package ui.cars;
 
+import io.qameta.allure.*;
 import org.testng.annotations.Test;
 import ui.BaseTest;
 import utils.PropertyReader;
@@ -12,6 +13,14 @@ public class ReadAllTest extends BaseTest {
     private static final String password = PropertyReader.getProperty("password");
 
     @Test
+    @Description("Открытие страницы со всеми авто")
+    @Epic("E2E")
+    @Feature("Просмотр авто в общем списке")
+    @Story("Страница со всеми существующими авто")
+    @Severity(SeverityLevel.BLOCKER)
+    @TmsLink("CARUI-8")
+    @Issue("CARUI-8")
+    @Owner("Алексеев Данил")
     public void openReadAll() {
         loginPage.open()
                 .login(user, password);
@@ -19,6 +28,14 @@ public class ReadAllTest extends BaseTest {
     }
 
     @Test
+    @Description("Проверка сортировки по ID страницы со всеми авто")
+    @Epic("E2E")
+    @Feature("Сортировка авто в общем списке по ID")
+    @Story("Страница со всеми существующими авто")
+    @Severity(SeverityLevel.CRITICAL)
+    @TmsLink("CARUI-9")
+    @Issue("CARUI-9")
+    @Owner("Алексеев Данил")
     public void sortID() {
         loginPage.open()
                 .login(user, password);

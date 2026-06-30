@@ -1,5 +1,6 @@
 package api;
 
+import io.qameta.allure.*;
 import models.cars.create.CarCreateRq;
 import models.cars.create.CarCreateRs;
 import models.cars.get.CarGetRs;
@@ -27,6 +28,14 @@ public class CreateNewCarTest {
             .build();
 
     @Test
+    @Description("CRUD авто")
+    @Epic("E2E")
+    @Feature("Путь жизни авто (создание, чтение, изменение, удаление")
+    @Story("Путь жизни авто")
+    @Severity(SeverityLevel.BLOCKER)
+    @TmsLink("CARAPI-1")
+    @Issue("CARAPI-1")
+    @Owner("Алексеев Данил")
     public void CRUD() {
         //CREATE CAR
         CarCreateRs rs = createCar(carCreate);
