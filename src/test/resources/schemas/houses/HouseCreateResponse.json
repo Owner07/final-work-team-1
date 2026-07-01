@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["id", "floorCount", "price", "parkingPlaces", "lodgers"],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "floorCount": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "price": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "parkingPlaces": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "isWarm", "isCovered", "placesCount"],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "isWarm": {
+            "type": "boolean"
+          },
+          "isCovered": {
+            "type": "boolean"
+          },
+          "placesCount": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      }
+    },
+    "lodgers": {
+      "type": "array"
+    }
+  }
+}

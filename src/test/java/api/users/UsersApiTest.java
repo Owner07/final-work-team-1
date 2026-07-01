@@ -1,4 +1,4 @@
-package api;
+package api.users;
 
 import api.adapters.users.UsersAdapter;
 import db.UsersDbClient;

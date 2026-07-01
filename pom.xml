@@ -112,13 +112,6 @@
             <version>${selenide.version}</version>
             <scope>compile</scope>
         </dependency>
-        <!-- Source: https://mvnrepository.com/artifact/io.rest-assured/json-schema-validator -->
-        <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured</artifactId>
-            <version>6.0.0</version>
-            <scope>compile</scope>
-        </dependency>
         <!-- Source: https://mvnrepository.com/artifact/com.google.code.gson/gson -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
@@ -150,6 +143,13 @@
             <artifactId>junit</artifactId>
             <version>RELEASE</version>
             <scope>test</scope>
+        </dependency>
+        <!-- Source: https://mvnrepository.com/artifact/io.rest-assured/json-schema-validator -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>json-schema-validator</artifactId>
+            <version>${rest-assured.version}</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

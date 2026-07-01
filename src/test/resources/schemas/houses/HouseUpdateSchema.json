@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["id", "floorCount", "price", "parkingPlaces", "lodgers"],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "floorCount": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "price": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "parkingPlaces": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "isWarm", "isCovered", "placesCount"],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "isWarm": {
+            "type": "boolean"
+          },
+          "isCovered": {
+            "type": "boolean"
+          },
+          "placesCount": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      }
+    },
+    "lodgers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "firstName", "secondName", "age", "sex", "money"],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "secondName": {
+            "type": "string"
+          },
+          "age": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "sex": {
+            "type": "string",
+            "enum": ["MALE", "FEMALE"]
+          },
+          "money": {
+            "type": "number",
+            "minimum": 0
+          }
+        }
+      }
+    }
+  }
+}
