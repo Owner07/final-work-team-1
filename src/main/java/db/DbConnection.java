@@ -1,5 +1,6 @@
 package db;
 
+import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import utils.PropertyReader;
 
@@ -12,6 +13,7 @@ public class DbConnection {
     private final String PASSWORD = System.getProperty("db_password", PropertyReader.getProperty("db_password"));
     private final String URL = System.getProperty("db_url", PropertyReader.getProperty("db_url"));
 
+    @Getter
     private Connection connection;
     private Statement statement;
     private ResultSet resultSet;
@@ -27,11 +29,7 @@ public class DbConnection {
         }
     }
 
-    public Connection getConnection() {
-        return connection;
-    }
-
-        public ResultSet select (String query){
+    public ResultSet select (String query){
             try {
                 return statement.executeQuery(query);
             } catch (SQLException e) {

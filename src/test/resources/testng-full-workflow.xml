@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Full House Test Suite" verbose="1">
+
+    <test name="Complete House Workflow">
+        <groups>
+            <run>
+                <include name="step1"/>
+                <include name="step2"/>
+                <include name="step3"/>
+                <include name="step4"/>
+                <include name="step5"/>
+                <include name="step6"/>
+                <include name="step7"/>
+                <include name="step8"/>
+                <include name="step9"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="api.houses.HouseTest"/>
+            <class name="db.houses.HouseDbTest"/>
+        </classes>
+    </test>
+
+</suite>

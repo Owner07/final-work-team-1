@@ -2,12 +2,14 @@ package api.adapters.base;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import io.restassured.authentication.AuthenticationScheme;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import utils.PropertyReader;
+import static io.restassured.RestAssured.oauth2;
 
 import static io.restassured.RestAssured.given;
 
@@ -52,11 +54,21 @@ public class BaseAdapter {
             .expectStatusCode(200)
             .build();
 
+    public static RequestSpecification specCar = new RequestSpecBuilder()
+            .setContentType(ContentType.JSON)
+            .setBaseUri(BASE_API_URL)
+            .setAuth(oauth2(TOKEN))
+            .build();
+
     public static ResponseSpecification ok204 = new ResponseSpecBuilder()
             .expectStatusCode(204)
             .build();
 
     public static ResponseSpecification ok201 = new ResponseSpecBuilder()
             .expectStatusCode(201)
+            .build();
+
+    public static ResponseSpecification ok202 = new ResponseSpecBuilder()
+            .expectStatusCode(202)
             .build();
 }

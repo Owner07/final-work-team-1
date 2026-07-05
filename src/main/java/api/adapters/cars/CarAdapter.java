@@ -18,7 +18,7 @@ public class CarAdapter extends BaseAdapter {
 
     public static CarCreateRs createCar(CarCreateRq carCreateRq) {
         return given()
-//                .spec(specCar)
+                .spec(specCar)
                 .body(gson.toJson(carCreateRq))
                 .log().all()
                 .when()
@@ -32,7 +32,7 @@ public class CarAdapter extends BaseAdapter {
 
     public static CarGetRs getCar(int carId) {
         return given()
-//                .spec(specCar)
+                .spec(specCar)
                 .log().all()
                 .when()
                 .get(ENDPOINT + carId)
@@ -45,7 +45,7 @@ public class CarAdapter extends BaseAdapter {
 
     public static CarUpdateRs putCar(CarUpdateRq carUpdateRq, int carId) {
         return given()
-//                .spec(specCar)
+                .spec(specCar)
                 .body(gson.toJson(carUpdateRq))
                 .log().all()
                 .when()
@@ -59,7 +59,7 @@ public class CarAdapter extends BaseAdapter {
 
     public static void deleteCar(int carId) {
         given()
-//                .spec(specCar)
+                .spec(specCar)
                 .log().all()
                 .when()
                 .delete(ENDPOINT + carId)

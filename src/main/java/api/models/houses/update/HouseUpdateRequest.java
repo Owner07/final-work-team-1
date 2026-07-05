@@ -2,13 +2,18 @@ package api.models.houses.update;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 import java.util.ArrayList;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class HouseUpdateRequest {
 
     @SerializedName("id")
@@ -33,6 +38,8 @@ public class HouseUpdateRequest {
 
     @Data
     @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class ParkingPlace {
 
         @SerializedName("id")

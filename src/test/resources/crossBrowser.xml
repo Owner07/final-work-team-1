@@ -13,6 +13,7 @@
         <parameter name="browser" value="edge"/>
         <classes>
             <class name="ui.login.LoginTest"/>
+            <class name="ui.houses.HouseTest"/>
         </classes>
     </test>
 

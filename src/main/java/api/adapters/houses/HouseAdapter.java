@@ -12,8 +12,6 @@ import static io.restassured.RestAssured.given;
 
 public class HouseAdapter extends BaseAdapter {
 
-    private static final String ENDPOINT_HOUSE = "/house/";
-
     public static HouseCreateResponse createHouse(HouseCreateRequest houseCreateRequest) {
         return given()
                 .spec(spec)
@@ -35,7 +33,7 @@ public class HouseAdapter extends BaseAdapter {
                 .spec(spec)
                 .log().all()
                 .when()
-                .get(ENDPOINT_HOUSE + houseId)
+                .get(houseId)
                 .then()
                 .body(JsonSchemaValidator
                         .matchesJsonSchemaInClasspath("schemas/houses/HouseGetSchema.json"))
@@ -51,12 +49,12 @@ public class HouseAdapter extends BaseAdapter {
                 .body(gson.toJson(houseUpdateRequest))
                 .log().all()
                 .when()
-                .put(ENDPOINT_HOUSE + houseId)
+                .put(houseId)
                 .then()
                 .body(JsonSchemaValidator
                         .matchesJsonSchemaInClasspath("schemas/houses/HouseUpdateSchema.json"))
                 .log().all()
-                .spec(ok200)
+                .spec(ok202)
                 .extract()
                 .as(HouseUpdateResponse.class);
     }
@@ -66,7 +64,7 @@ public class HouseAdapter extends BaseAdapter {
                 .spec(spec)
                 .log().all()
                 .when()
-                .delete(ENDPOINT_HOUSE + houseId)
+                .delete( houseId)
                 .then()
                 .log().all()
                 .spec(ok204);
