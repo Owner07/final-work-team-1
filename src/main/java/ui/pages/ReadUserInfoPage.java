@@ -4,15 +4,13 @@ import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 
-import java.time.Duration;
-
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
 @Log4j2
 public class ReadUserInfoPage {
 
-    private static final String READ_USER_INFO_URL = "http://82.142.167.37:4881/#/read/userInfo";
+    private static final String READ_USER_INFO_URL = "/#/read/userInfo";
 
     private final SelenideElement userIdInput = $("input[type='number']");
     private final SelenideElement readButton = $$("button").findBy(exactText("Read"));
@@ -27,8 +25,8 @@ public class ReadUserInfoPage {
 
     @Step("Проверить, что страница Read user with cars открыта")
     public ReadUserInfoPage shouldBeOpened() {
-        userIdInput.shouldBe(visible, Duration.ofSeconds(15));
-        readButton.shouldBe(visible, Duration.ofSeconds(15));
+        userIdInput.shouldBe(visible);
+        readButton.shouldBe(visible);
         return this;
     }
 
@@ -37,7 +35,7 @@ public class ReadUserInfoPage {
         log.info("Set user id: {}", userId);
 
         userIdInput
-                .shouldBe(visible, Duration.ofSeconds(15))
+                .shouldBe(visible)
                 .clear();
 
         userIdInput.setValue(String.valueOf(userId));
@@ -48,7 +46,8 @@ public class ReadUserInfoPage {
     @Step("Нажать Read")
     public ReadUserInfoPage clickRead() {
         readButton
-                .shouldBe(enabled, Duration.ofSeconds(15))
+                .shouldBe(visible)
+                .shouldBe(enabled)
                 .click();
 
         return this;
@@ -56,9 +55,10 @@ public class ReadUserInfoPage {
 
     @Step("Проверить, что пользователь отображается на странице")
     public ReadUserInfoPage shouldHaveUser(String userId, String firstName, String secondName) {
-        userTable.shouldHave(text(userId), Duration.ofSeconds(15));
-        userTable.shouldHave(text(firstName), Duration.ofSeconds(15));
-        userTable.shouldHave(text(secondName), Duration.ofSeconds(15));
+        userTable.shouldBe(visible);
+        userTable.shouldHave(text(userId));
+        userTable.shouldHave(text(firstName));
+        userTable.shouldHave(text(secondName));
         return this;
     }
 }

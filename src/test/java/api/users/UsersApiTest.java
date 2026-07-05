@@ -26,9 +26,13 @@ public class UsersApiTest {
     private final UsersDbClient usersDbClient = new UsersDbClient();
 
     @Test
-    @Story("Create new")
-    @Severity(SeverityLevel.CRITICAL)
-    @Description("Создание пользователя через API POST /user")
+    @Description("Создание нового пользователя через API POST /user")
+    @Epic("API")
+    @Feature("API Users")
+    @Story("Создание пользователя")
+    @Severity(SeverityLevel.BLOCKER)
+    @TmsLink("USERAPI-1")
+    @Owner("Кесаева Валерия")
     public void createUserApiTest() {
         log.info("Start createUserApiTest");
 
@@ -55,9 +59,13 @@ public class UsersApiTest {
     }
 
     @Test
-    @Story("Read all")
+    @Description("Получение списка пользователей через API GET /users и проверка наличия созданного пользователя")
+    @Epic("API")
+    @Feature("API Users")
+    @Story("Получение списка пользователей")
     @Severity(SeverityLevel.CRITICAL)
-    @Description("Созданный пользователь отображается в списке GET /users")
+    @TmsLink("USERAPI-2")
+    @Owner("Кесаева Валерия")
     public void createdUserShouldBeInUsersListTest() {
         log.info("Start createdUserShouldBeInUsersListTest");
 
@@ -93,9 +101,13 @@ public class UsersApiTest {
     }
 
     @Test
-    @Story("Read user by ID")
+    @Description("Получение созданного пользователя через API GET /user/{userId}")
+    @Epic("API")
+    @Feature("API Users")
+    @Story("Получение пользователя по ID")
     @Severity(SeverityLevel.CRITICAL)
-    @Description("Созданный пользователь получается через GET /user/{userId}")
+    @TmsLink("USERAPI-3")
+    @Owner("Кесаева Валерия")
     public void createUserAndGetByIdTest() {
         log.info("Start createUserAndGetByIdTest");
 
@@ -128,9 +140,13 @@ public class UsersApiTest {
     }
 
     @Test
-    @Story("Read user with cars")
+    @Description("Получение созданного пользователя с машинами через API GET /user/{userId}/info")
+    @Epic("API")
+    @Feature("API Users")
+    @Story("Получение пользователя с машинами")
     @Severity(SeverityLevel.CRITICAL)
-    @Description("Созданный пользователь получается через GET /user/{userId}/info")
+    @TmsLink("USERAPI-4")
+    @Owner("Кесаева Валерия")
     public void getUserInfoWithCarsTest() {
         log.info("Start getUserInfoWithCarsTest");
 
@@ -160,9 +176,13 @@ public class UsersApiTest {
     }
 
     @Test
-    @Story("Create new with DB assert")
+    @Description("Создание пользователя через API POST /user и проверка записи в таблице person")
+    @Epic("API + DB")
+    @Feature("API Users")
+    @Story("Создание пользователя с проверкой в БД")
     @Severity(SeverityLevel.BLOCKER)
-    @Description("Создание пользователя через API с проверкой записи в БД")
+    @TmsLink("USERDB-1")
+    @Owner("Кесаева Валерия")
     public void createUserAndCheckInDbTest() {
         log.info("Start createUserAndCheckInDbTest");
 
@@ -193,6 +213,42 @@ public class UsersApiTest {
         }
 
         log.info("Finish createUserAndCheckInDbTest");
+    }
+
+    @Test
+    @Description("Удаление пользователя через API DELETE /user/{userId}")
+    @Epic("API")
+    @Feature("API Users")
+    @Story("Удаление пользователя")
+    @Severity(SeverityLevel.CRITICAL)
+    @TmsLink("USERAPI-5")
+    @Owner("Кесаева Валерия")
+    public void deleteUserApiTest() {
+        log.info("Start deleteUserApiTest");
+
+        Long createdUserId = null;
+
+        try {
+            UserCreateRequest request = UserTestDataFactory.createValidUser();
+
+            UserCreateResponse createdUser = usersAdapter.createUserAndGetDto(request);
+            createdUserId = createdUser.getId();
+
+            usersAdapter.deleteUser(createdUserId)
+                    .then()
+                    .statusCode(204);
+
+            usersAdapter.getUserById(createdUserId)
+                    .then()
+                    .statusCode(204);
+
+            createdUserId = null;
+
+        } finally {
+            deleteUserIfCreated(createdUserId);
+        }
+
+        log.info("Finish deleteUserApiTest");
     }
 
     private void deleteUserIfCreated(Long userId) {
