@@ -1,5 +1,6 @@
 package api.models.users.get;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
