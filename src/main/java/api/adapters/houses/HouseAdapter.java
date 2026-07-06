@@ -7,6 +7,7 @@ import api.models.houses.get.HouseGetResponse;
 import api.models.houses.update.HouseUpdateRequest;
 import api.models.houses.update.HouseUpdateResponse;
 import io.restassured.module.jsv.JsonSchemaValidator;
+import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;
 
@@ -68,5 +69,16 @@ public class HouseAdapter extends BaseAdapter {
                 .then()
                 .log().all()
                 .spec(ok204);
+    }
+
+    public Response deleteHouseWithOutCheckStatus(Integer houseId) {
+        return authorizedRequest()
+                .pathParam("houseId", houseId)
+                .log().all()
+                .when()
+                .delete("/house/{houseId}")
+                .then()
+                .extract()
+                .response();
     }
 }

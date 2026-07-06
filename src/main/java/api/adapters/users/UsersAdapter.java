@@ -33,6 +33,7 @@ public class UsersAdapter extends BaseAdapter {
     public UserCreateResponse createUserAndGetDto(UserCreateRequest request) {
         return createUser(request)
                 .then()
+                .log().all()
                 .statusCode(201)
                 .extract()
                 .as(UserCreateResponse.class);
@@ -83,9 +84,11 @@ public class UsersAdapter extends BaseAdapter {
 
         return authorizedRequest()
                 .pathParam("userId", userId)
+                .log().all()
                 .when()
                 .delete(USER_BY_ID)
                 .then()
+                .log().all()
                 .extract()
                 .response();
     }

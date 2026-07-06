@@ -7,6 +7,7 @@ import api.models.cars.create.CarCreateRs;
 import api.models.cars.get.CarGetRs;
 import api.models.cars.update.CarUpdateRq;
 import api.models.cars.update.CarUpdateRs;
+import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;
 
@@ -66,5 +67,16 @@ public class CarAdapter extends BaseAdapter {
                 .then()
                 .log().all()
                 .statusCode(204);
+    }
+
+    public Response deleteCarWithOutCheckStatus(Integer carId) {
+        return authorizedJsonRequest()
+                .pathParam("carId", carId)
+                .log().all()
+                .when()
+                .delete("/car/{carId}")
+                .then()
+                .extract()
+                .response();
     }
 }
