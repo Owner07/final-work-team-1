@@ -7,7 +7,9 @@ import api.models.houses.create.HouseCreateRequest.ParkingPlace;
 import api.models.houses.get.HouseGetResponse;
 import api.models.houses.update.HouseUpdateRequest;
 import api.models.houses.update.HouseUpdateResponse;
+import api.models.login.AuthResponse;
 import lombok.extern.log4j.Log4j2;
+import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -157,5 +159,15 @@ public class HouseTest {
         } catch (Exception e) {
             log.info("House {} does not exist as expected", createdHouseId);
         }
+    }
+
+    @Test
+    public void loginTest() {
+        AuthResponse response = api.adapters.auth.LoginAdapter.login();
+        log.info("Login response: {}", response);
+        Assert.assertNotNull(response);
+        Assert.assertNotNull(response.getAccess_token());
+        Assert.assertFalse(response.getAccess_token().isEmpty());
+        log.info("Access token: {}", response.getAccess_token());
     }
 }

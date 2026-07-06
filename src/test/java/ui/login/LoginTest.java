@@ -18,7 +18,7 @@ import static org.testng.Assert.assertEquals;
 public class LoginTest extends BaseTest {
 
     private static final String USER = PropertyReader.getProperty("user");
-    private static final String PASSWORD = PropertyReader.getProperty("password");
+    private static final String PASSWORD = PropertyReader.getProperty("password1");
 
     @Test
     @Description("Проверка на удачный логин в системе дипломного проекта")
