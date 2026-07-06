@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 public class UsersDbClient {
 
     @Step("Получить пользователя из БД по id={userId}")
-    public UserDbEntity getUserById(Long userId) {
+    public UserDbEntity getUserById(Integer userId) {
         String sql = """
             SELECT id, age, first_name, money, second_name, sex, house_id
             FROM person
@@ -24,16 +24,16 @@ public class UsersDbClient {
         dbConnection.connect();
 
         try (PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql)) {
-            statement.setLong(1, userId);
+            statement.setInt(1, userId);
 
             try (ResultSet rs = statement.executeQuery()) {
                 if (rs.next()) {
-                    Long houseId = rs.getObject("house_id") == null
+                    Integer houseId = rs.getObject("house_id") == null
                             ? null
-                            : rs.getLong("house_id");
+                            : rs.getInt("house_id");
 
                     return UserDbEntity.builder()
-                            .id(rs.getLong("id"))
+                            .id(rs.getInt("id"))
                             .age(rs.getInt("age"))
                             .firstName(rs.getString("first_name"))
                             .money(rs.getBigDecimal("money"))
