@@ -20,7 +20,7 @@ import java.util.Map;
 
 @Log4j2
 @Epic("PFLB Test-API")
-@Feature("Users Money Management") // TODO Переименовать
+@Feature("Сравнение данных из БД с UI")
 public class DbAddMoneyTest extends BaseTest {
 
     private final UsersPage usersPage = new UsersPage();
