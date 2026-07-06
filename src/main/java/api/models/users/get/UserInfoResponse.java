@@ -1,12 +1,12 @@
 package api.models.users.get;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import api.models.cars.get.CarGetRs;
 import java.util.List;
-import java.util.Map;
 
 @Data
 @Builder
@@ -21,7 +21,5 @@ public class UserInfoResponse {
     private String sex;
     private Double money;
     private Integer house;
-
-    // Временно, пока CarDto делает другой участник
-    private List<Map<String, Object>> cars;
+    private List<CarGetRs> cars;
 }
