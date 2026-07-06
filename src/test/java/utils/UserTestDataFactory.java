@@ -12,7 +12,7 @@ public class UserTestDataFactory {
 
     public static UserCreateRequest createValidUser() {
         return UserCreateRequest.builder()
-                .id(System.currentTimeMillis())
+                .id(null)
                 .firstName(faker.name().firstName())
                 .secondName(faker.name().lastName())
                 .age(ThreadLocalRandom.current().nextInt(18, 80))
