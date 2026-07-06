@@ -31,7 +31,7 @@ public class ReadUserInfoPage {
     }
 
     @Step("Ввести id пользователя")
-    public ReadUserInfoPage setUserId(Long userId) {
+    public ReadUserInfoPage setUserId(Integer userId) {
         log.info("Set user id: {}", userId);
 
         userIdInput

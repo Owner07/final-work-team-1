@@ -268,13 +268,13 @@ src/main/java/api/adapters/users/UsersAdapter.java
 ### Основные методы
 
 | Метод                                            | Endpoint                  | Назначение                                                 |
-| ------------------------------------------------ | ------------------------- | ---------------------------------------------------------- |
+|--------------------------------------------------| ------------------------- | ---------------------------------------------------------- |
 | `createUser(UserCreateRequest request)`          | `POST /user`              | Создаёт пользователя и возвращает `Response`               |
 | `createUserAndGetDto(UserCreateRequest request)` | `POST /user`              | Создаёт пользователя и возвращает DTO `UserCreateResponse` |
 | `getAllUsers()`                                  | `GET /users`              | Получает список всех пользователей                         |
-| `getUserById(Long userId)`                       | `GET /user/{userId}`      | Получает пользователя по id                                |
-| `getUserInfoById(Long userId)`                   | `GET /user/{userId}/info` | Получает пользователя с машинами                           |
-| `deleteUser(Long userId)`                        | `DELETE /user/{userId}`   | Удаляет пользователя                                       |
+| `getUserById(Integer userId)`                    | `GET /user/{userId}`      | Получает пользователя по id                                |
+| `getUserInfoById(Integer userId)`                   | `GET /user/{userId}/info` | Получает пользователя с машинами                           |
+| `deleteUser(Integer userId)`                        | `DELETE /user/{userId}`   | Удаляет пользователя                                       |
 
 ### Где используется
 
@@ -889,7 +889,7 @@ person
 
 | Метод                      | Назначение                                           |
 | -------------------------- | ---------------------------------------------------- |
-| `getUserById(Long userId)` | Получает пользователя из БД по id                    |
+| `getUserById(Integer userId)` | Получает пользователя из БД по id                    |
 | `getUsersCount()`          | Получает количество пользователей в таблице `person` |
 
 ### SQL для получения пользователя

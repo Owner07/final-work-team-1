@@ -224,7 +224,7 @@ public class UsersPage extends BasePage {
     }
 
     @Step("Прочитать пользователя по ID {userId}")
-    public UsersPage readUserById(Long userId) {
+    public UsersPage readUserById(Integer userId) {
         log.info("Read user by id: {}", userId);
         Input.inputRead(String.valueOf(userId));
         return this;
@@ -308,7 +308,7 @@ public class UsersPage extends BasePage {
     }
 
     @Step("Получить ID пользователя, созданного через UI")
-    public Long getCreatedUserId() {
+    public Integer getCreatedUserId() {
         String text = newIdButton.shouldBe(visible).getText();
         log.info("Created user id text: {}", text);
 
@@ -318,6 +318,6 @@ public class UsersPage extends BasePage {
             throw new IllegalStateException("Не удалось получить id созданного пользователя из текста: " + text);
         }
 
-        return Long.parseLong(id);
+        return Integer.parseInt(id);
     }
 }

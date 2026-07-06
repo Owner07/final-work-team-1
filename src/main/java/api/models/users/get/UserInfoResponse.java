@@ -14,13 +14,13 @@ import java.util.Map;
 @AllArgsConstructor
 public class UserInfoResponse {
 
-    private Long id;
+    private Integer id;
     private String firstName;
     private String secondName;
     private Integer age;
     private String sex;
     private Double money;
-    private Long house;
+    private Integer house;
 
     // Временно, пока CarDto делает другой участник
     private List<Map<String, Object>> cars;

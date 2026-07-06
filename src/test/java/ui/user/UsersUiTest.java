@@ -1,15 +1,12 @@
 package ui.user;
 
-import api.adapters.users.UsersAdapter;
 import io.qameta.allure.*;
 import lombok.extern.log4j.Log4j2;
 import api.models.users.create.UserCreateRequest;
 import api.models.users.create.UserCreateResponse;
 import org.testng.annotations.Test;
-import ui.pages.ReadUserInfoPage;
 import base.BaseTest;
 import utils.UserTestDataFactory;
-import db.UsersDbClient;
 import api.models.users.db.UserDbEntity;
 import ui.pages.UsersPage;
 import ui.wrappers.TableValue;
@@ -23,11 +20,6 @@ import static org.testng.Assert.*;
 @Epic("PFLB Test-API")
 @Feature("Users UI")
 public class UsersUiTest extends BaseTest {
-
-    private final UsersAdapter usersAdapter = new UsersAdapter();
-    private final ReadUserInfoPage readUserInfoPage = new ReadUserInfoPage();
-    private final UsersPage usersPage = new UsersPage();
-    private final UsersDbClient usersDbClient = new UsersDbClient();
 
     @Test
     @Description("Открытие страницы списка пользователей и проверка загрузки данных после нажатия Reload")
@@ -68,7 +60,7 @@ public class UsersUiTest extends BaseTest {
     public void createdUserShouldBeDisplayedOnReadUserInfoPageTest() {
         log.info("Start createdUserShouldBeDisplayedOnReadUserInfoPageTest");
 
-        Long createdUserId = null;
+        Integer createdUserId = null;
 
         try {
             UserCreateRequest request = UserTestDataFactory.createValidUser();
@@ -98,7 +90,7 @@ public class UsersUiTest extends BaseTest {
         log.info("Finish createdUserShouldBeDisplayedOnReadUserInfoPageTest");
     }
 
-    private void deleteUserIfCreated(Long userId) {
+    private void deleteUserIfCreated(Integer userId) {
         if (userId != null) {
             usersAdapter.deleteUser(userId)
                     .then()
@@ -117,7 +109,7 @@ public class UsersUiTest extends BaseTest {
     public void userShouldBeCreatedFromCreateNewPageAndSavedInDbTest() {
         log.info("Start userShouldBeCreatedFromCreateNewPageAndSavedInDbTest");
 
-        Long createdUserId = null;
+        Integer createdUserId = null;
 
         try {
             UserCreateRequest request = UserTestDataFactory.createValidUser();

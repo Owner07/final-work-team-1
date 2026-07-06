@@ -13,11 +13,11 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class UserDbEntity {
 
-    private Long id;
+    private Integer id;
     private Integer age;
     private String firstName;
     private BigDecimal money;
     private String secondName;
     private Boolean sex;
-    private Long houseId;
+    private Integer houseId;
 }

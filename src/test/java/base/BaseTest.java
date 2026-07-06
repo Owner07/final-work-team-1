@@ -1,10 +1,11 @@
 package base;
 
+import api.adapters.users.UsersAdapter;
 import com.codeborne.selenide.logevents.SelenideLogger;
+import db.UsersDbClient;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.testng.ITestResult;
-import ui.pages.CarsPage;
-import ui.pages.LoginPage;
+import ui.pages.*;
 import listeners.ScreenshotListener;
 import listeners.TestListener;
 import services.annotations.NoLogin;
@@ -17,7 +18,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
-import ui.pages.HousePage;
 import utils.PropertyReader;
 
 import java.lang.reflect.Method;
@@ -32,6 +32,10 @@ public class BaseTest {
     protected LoginPage loginPage;
     protected CarsPage carsPage;
     protected HousePage housePage;
+    protected UsersAdapter usersAdapter;
+    protected UsersPage usersPage;
+    protected ReadUserInfoPage readUserInfoPage;
+    protected UsersDbClient usersDbClient;
 
     @Parameters({"browser"})
     @BeforeMethod(alwaysRun = true, description = "Настройки для драйвера")
@@ -80,6 +84,10 @@ public class BaseTest {
         loginPage = new LoginPage();
         carsPage = new CarsPage();
         housePage = new HousePage();
+        usersAdapter = new UsersAdapter();
+        usersPage = new UsersPage();
+        readUserInfoPage = new ReadUserInfoPage();
+        usersDbClient = new UsersDbClient();
 
         // Проверяем, есть ли аннотация @NoLogin на тестовом методе
         boolean noLogin = method.isAnnotationPresent(NoLogin.class);

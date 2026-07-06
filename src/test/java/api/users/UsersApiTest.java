@@ -36,7 +36,7 @@ public class UsersApiTest {
     public void createUserApiTest() {
         log.info("Start createUserApiTest");
 
-        Long createdUserId = null;
+        Integer createdUserId = null;
 
         try {
             UserCreateRequest request = UserTestDataFactory.createValidUser();
@@ -69,7 +69,7 @@ public class UsersApiTest {
     public void createdUserShouldBeInUsersListTest() {
         log.info("Start createdUserShouldBeInUsersListTest");
 
-        Long createdUserId = null;
+        Integer createdUserId = null;
 
         try {
             UserCreateRequest request = UserTestDataFactory.createValidUser();
@@ -86,7 +86,7 @@ public class UsersApiTest {
 
             assertFalse(users.isEmpty(), "Список пользователей не должен быть пустым");
 
-            final Long userId = createdUserId;
+            final Integer userId = createdUserId;
 
             boolean userExists = users.stream()
                     .anyMatch(user -> userId.equals(user.getId()));
@@ -111,7 +111,7 @@ public class UsersApiTest {
     public void createUserAndGetByIdTest() {
         log.info("Start createUserAndGetByIdTest");
 
-        Long createdUserId = null;
+        Integer createdUserId = null;
 
         try {
             UserCreateRequest request = UserTestDataFactory.createValidUser();
@@ -150,7 +150,7 @@ public class UsersApiTest {
     public void getUserInfoWithCarsTest() {
         log.info("Start getUserInfoWithCarsTest");
 
-        Long createdUserId = null;
+        Integer createdUserId = null;
 
         try {
             UserCreateRequest request = UserTestDataFactory.createValidUser();
@@ -186,7 +186,7 @@ public class UsersApiTest {
     public void createUserAndCheckInDbTest() {
         log.info("Start createUserAndCheckInDbTest");
 
-        Long createdUserId = null;
+        Integer createdUserId = null;
 
         try {
             UserCreateRequest request = UserTestDataFactory.createValidUser();
@@ -226,7 +226,7 @@ public class UsersApiTest {
     public void deleteUserApiTest() {
         log.info("Start deleteUserApiTest");
 
-        Long createdUserId = null;
+        Integer createdUserId = null;
 
         try {
             UserCreateRequest request = UserTestDataFactory.createValidUser();
@@ -251,7 +251,7 @@ public class UsersApiTest {
         log.info("Finish deleteUserApiTest");
     }
 
-    private void deleteUserIfCreated(Long userId) {
+    private void deleteUserIfCreated(Integer userId) {
         if (userId != null) {
             usersAdapter.deleteUser(userId)
                     .then()

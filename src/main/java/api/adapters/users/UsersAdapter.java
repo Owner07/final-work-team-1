@@ -51,7 +51,7 @@ public class UsersAdapter extends BaseAdapter {
     }
 
     @Step("Получить пользователя GET /user/{userId}")
-    public Response getUserById(Long userId) {
+    public Response getUserById(Integer userId) {
         log.info("GET {} userId={}", USER_BY_ID, userId);
 
         return baseRequest()
@@ -64,7 +64,7 @@ public class UsersAdapter extends BaseAdapter {
     }
 
     @Step("Получить пользователя с машинами GET /user/{userId}/info")
-    public UserInfoResponse getUserInfoById(Long userId) {
+    public UserInfoResponse getUserInfoById(Integer userId) {
         log.info("GET {} userId={}", USER_INFO_BY_ID, userId);
 
         return baseRequest()
@@ -78,7 +78,7 @@ public class UsersAdapter extends BaseAdapter {
     }
 
     @Step("Удалить пользователя DELETE /user/{userId}")
-    public Response deleteUser(Long userId) {
+    public Response deleteUser(Integer userId) {
         log.info("DELETE {} userId={}", USER_BY_ID, userId);
 
         return authorizedRequest()
