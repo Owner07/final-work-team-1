@@ -5,7 +5,6 @@ import com.codeborne.selenide.logevents.SelenideLogger;
 import db.UsersDbClient;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.testng.ITestResult;
-import ui.pages.*;
 import listeners.ScreenshotListener;
 import listeners.TestListener;
 import services.annotations.NoLogin;
@@ -18,6 +17,11 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
+import ui.pages.car.CarsPage;
+import ui.pages.house.HousePage;
+import ui.pages.login.LoginPage;
+import ui.pages.user.ReadUserInfoPage;
+import ui.pages.user.UsersPage;
 import utils.PropertyReader;
 
 import java.lang.reflect.Method;
@@ -27,7 +31,7 @@ import java.lang.reflect.Method;
 public class BaseTest {
 
     private static final String user = PropertyReader.getProperty("user");
-    private static final String password = PropertyReader.getProperty("password");
+    private static final String password = PropertyReader.getProperty("password1");
 
     protected LoginPage loginPage;
     protected CarsPage carsPage;

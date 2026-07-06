@@ -1,4 +1,4 @@
-package ui.pages;
+package ui.pages.base;
 
 import com.codeborne.selenide.SelenideElement;
 import lombok.extern.log4j.Log4j2;

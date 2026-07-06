@@ -18,13 +18,13 @@ public class Select {
                 .shouldBe(Condition.visible, TIMEOUT)
                 .shouldBe(Condition.enabled, TIMEOUT)
                 .click();
-        Selenide.sleep(300);
+        Selenide.sleep(600);
 
         // Ожидаем, что опция видима и кликабельна
         $(byText(optionText))
                 .shouldBe(Condition.visible, TIMEOUT)
                 .shouldBe(Condition.enabled, TIMEOUT)
                 .click();
-        Selenide.sleep(300);
+        Selenide.sleep(600);
     }
 }

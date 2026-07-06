@@ -1,11 +1,11 @@
-package ui.pages;
+package ui.pages.user;
 
 import lombok.extern.log4j.Log4j2;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import api.models.users.create.UserCreateRequest;
-import ui.wrappers.*;
+import ui.pages.base.BasePage;
 import ui.wrappers.ButtonPush;
 import ui.wrappers.GetStatus;
 import ui.wrappers.Input;

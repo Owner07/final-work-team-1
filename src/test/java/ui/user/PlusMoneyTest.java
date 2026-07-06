@@ -6,8 +6,8 @@ import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import ui.pages.PlusMoneyPage;
-import ui.pages.UsersPage;
+import ui.pages.user.PlusMoneyPage;
+import ui.pages.user.UsersPage;
 import base.BaseTest;
 
 import static org.testng.Assert.assertEquals;

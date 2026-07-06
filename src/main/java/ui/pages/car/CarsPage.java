@@ -1,9 +1,10 @@
-package ui.pages;
+package ui.pages.car;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
+import ui.pages.base.BasePage;
 
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
