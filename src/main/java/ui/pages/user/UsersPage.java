@@ -1,24 +1,24 @@
 package ui.pages.user;
 
-import lombok.extern.log4j.Log4j2;
+import api.models.users.create.UserCreateRequest;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import api.models.users.create.UserCreateRequest;
+import lombok.extern.log4j.Log4j2;
 import ui.pages.base.BasePage;
 import ui.wrappers.ButtonPush;
 import ui.wrappers.GetStatus;
 import ui.wrappers.Input;
 import ui.wrappers.TableValue;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 
 @Log4j2
 public class UsersPage extends BasePage {
@@ -163,6 +163,40 @@ public class UsersPage extends BasePage {
         String firstId = ids.get(0);
         log.info("First user ID: {}", firstId);
         return firstId;
+    }
+
+    @Step("Получить данные пользователя по ID")
+    public Map<String, String> getRowDataById(String userId) {
+        log.info("Getting row data for user ID: {}", userId);
+        $("table.table").shouldBe(visible);
+
+        // Получаем все заголовки таблицы
+        ElementsCollection headers = $$("table.table thead th");
+        List<String> headerList = headers.texts().stream()
+                .map(header -> header.replaceAll(":$", ""))
+                .toList();
+
+        // Ищем строку с нужным ID
+        ElementsCollection allRows = $$("table.table tbody tr");
+
+        for (SelenideElement row : allRows) {
+            String rowId = row.$("td:first-child").getText();
+            if (rowId.equals(userId)) {
+                // Нашли нужную строку
+                ElementsCollection cells = row.$$("td");
+                Map<String, String> rowData = new LinkedHashMap<>();
+
+                for (int i = 0; i < Math.min(headerList.size(), cells.size()); i++) {
+                    rowData.put(headerList.get(i), cells.get(i).getText());
+                }
+
+                log.info("Row data for ID {}: {}", userId, rowData);
+                return rowData;
+            }
+        }
+
+        log.warn("User with ID {} not found in table", userId);
+        return null;
     }
 
     @Step("Получить ID пользователя с индексом {index}")
