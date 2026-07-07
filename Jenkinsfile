@@ -33,28 +33,20 @@ pipeline {
                             passwordVariable: 'DB_PASS'
                         )
                     ]) {
-                        // Используем withEnv но с экранированием
-                        withEnv([
-                            "UI_USER=${UI_USER}",
-                            "UI_PASS=${UI_PASS}",
-                            "DB_USER=${DB_USER}",
-                            "DB_PASS=${DB_PASS}"
-                        ]) {
-                            sh '''
-                                # Экранируем переменные для безопасной записи в файл
-                                printf "username=%s\\n" "$UI_USER" > test.properties
-                                printf "password=%s\\n" "$UI_PASS" >> test.properties
-                                printf "db.user=%s\\n" "$DB_USER" >> test.properties
-                                printf "db.password=%s\\n" "$DB_PASS" >> test.properties
-                                printf "db.url=jdbc:postgresql://your-db-host:5432/your-db\\n" >> test.properties
+                        // Просто передаем переменные через свойства
+                        sh """
+                            echo "username=${UI_USER}" > test.properties
+                            echo "password=${UI_PASS}" >> test.properties
+                            echo "db.user=${DB_USER}" >> test.properties
+                            echo "db.password=${DB_PASS}" >> test.properties
+                            echo "db.url=jdbc:postgresql://your-db-host:5432/your-db" >> test.properties
 
-                                mvn clean test \\
-                                    -Dbrowser=${BROWSER} \\
-                                    -DsuiteXmlFile=src/test/resources/${TESTNG_XML} \\
-                                    -DpropertyFile=test.properties \\
-                                    -Dlogback.configurationFile=src/test/resources/logback-test.xml
-                            '''
-                        }
+                            mvn clean test \\
+                                -Dbrowser=${params.BROWSER} \\
+                                -DsuiteXmlFile=src/test/resources/${params.TESTNG_XML} \\
+                                -DpropertyFile=test.properties \\
+                                -Dlogback.configurationFile=src/test/resources/logback-test.xml
+                        """
                     }
                 }
             }
