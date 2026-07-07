@@ -15,28 +15,32 @@ pipeline {
         stage('Run test Team one') {
             steps {
                 script {
-                    // Маскируем вывод кредов в Jenkins
+                    // ✅ ПРАВИЛЬНО: используем usernamePassword для ваших credentials
                     withCredentials([
-                        string(credentialsId: 'user-password', variable: 'PASSWORD1'),
+                        // Ваши новые credentials (username + password)
+                        usernamePassword(
+                            credentialsId: 'ui-tests-credentials', // ← Созданные вами
+                            usernameVariable: 'UI_USER',
+                            passwordVariable: 'UI_PASS'
+                        ),
+                        // Остальные credentials (если есть)
                         string(credentialsId: 'db-password', variable: 'DB_PASSWORD'),
                         string(credentialsId: 'api-token', variable: 'API_TOKEN'),
                         string(credentialsId: 'admin-password', variable: 'ADMIN_PASSWORD')
                     ]) {
                         git 'https://github.com/Owner07/final-work-team-1.git'
 
-                        // Передаем креды через системные свойства (-D), но они будут переопределять значения из properties
-                        // Для user и db_user используем обычные переменные (они не такие секретные)
                         sh """
                             mvn clean test \
                                 -Dbrowser=${params.BROWSER} \
                                 -DsuiteXmlFile=src/test/resources/${params.TESTNG_XML} \
-                                -Duser=user@pflb.ru \
-                                -Dpassword1=${PASSWORD1} \
+                                -Duser=\${UI_USER} \
+                                -Dpassword=\${UI_PASS} \
                                 -Ddb_user=pflb-at-read \
-                                -Ddb_password=${DB_PASSWORD} \
-                                -Dapi_token=${API_TOKEN} \
+                                -Ddb_password=\${DB_PASSWORD} \
+                                -Dapi_token=\${API_TOKEN} \
                                 -Dusername=admin@pflb.ru \
-                                -Dpassword=${ADMIN_PASSWORD}
+                                -Dpassword=\${ADMIN_PASSWORD}
                         """
                     }
                 }
