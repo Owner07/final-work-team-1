@@ -26,22 +26,30 @@ pipeline {
                             credentialsId: 'ui-tests-credentials',
                             usernameVariable: 'UI_USER',
                             passwordVariable: 'UI_PASS'
+                        ),
+                        usernamePassword(
+                            credentialsId: 'db-credentials',
+                            usernameVariable: 'DB_USER',
+                            passwordVariable: 'DB_PASS'
                         )
                     ]) {
-                        // Создаём файл с credentials
                         sh """
+                            # Создаём файл с credentials
                             cat > test.properties << EOF
-                            user=\${UI_USER}
-                            password=\${UI_PASS}
+                            username=${UI_USER}
+                            password=${UI_PASS}
+                            db.user=${DB_USER}
+                            db.password=${DB_PASS}
+                            db.url=jdbc:postgresql://your-db-host:5432/your-db
+                            api_token=\${api_token}  # Токен берется из config.properties
                             EOF
-                        """
 
-                        // Запускаем тесты
-                        sh """
+                            # Запускаем тесты (логи будут замаскированы через logback)
                             mvn clean test \\
                                 -Dbrowser=${params.BROWSER} \\
                                 -DsuiteXmlFile=src/test/resources/${params.TESTNG_XML} \\
-                                -DpropertyFile=test.properties
+                                -DpropertyFile=test.properties \\
+                                -Dlogback.configurationFile=src/test/resources/logback-test.xml
                         """
                     }
                 }
@@ -51,9 +59,10 @@ pipeline {
 
     post {
         always {
-            // Удаляем временный файл с паролями (даже если тесты упали)
             script {
-                sh 'rm -f test.properties || true'
+                sh '''
+                    rm -f test.properties || true
+                '''
             }
             junit '**/target/surefire-reports/TEST-*.xml'
             allure includeProperties: false, jdk: '', resultPolicy: 'LEAVE_AS_IS', results: [[path: 'target/allure-results']]
