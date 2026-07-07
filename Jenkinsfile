@@ -33,14 +33,19 @@ pipeline {
                             passwordVariable: 'DB_PASS'
                         )
                     ]) {
-                        // Просто передаем переменные через свойства
-                        sh """
-                            echo "username=${UI_USER}" > test.properties
-                            echo "password=${UI_PASS}" >> test.properties
-                            echo "db.user=${DB_USER}" >> test.properties
-                            echo "db.password=${DB_PASS}" >> test.properties
-                            echo "db.url=jdbc:postgresql://your-db-host:5432/your-db" >> test.properties
+                        // Создаем контент файла в Groovy (безопасно)
+                        def propertiesContent = """
+username=${UI_USER}
+password=${UI_PASS}
+db.user=${DB_USER}
+db.password=${DB_PASS}
+db.url=jdbc:postgresql://your-db-host:5432/your-db
+"""
+                        // Записываем файл через Groovy, а не через sh
+                        writeFile file: 'test.properties', text: propertiesContent
 
+                        // Запускаем тесты - переменные уже в файле
+                        sh """
                             mvn clean test \\
                                 -Dbrowser=${params.BROWSER} \\
                                 -DsuiteXmlFile=src/test/resources/${params.TESTNG_XML} \\
@@ -56,7 +61,10 @@ pipeline {
     post {
         always {
             script {
-                sh 'rm -f test.properties || true'
+                // Удаляем файл через Groovy
+                if (fileExists('test.properties')) {
+                    deleteFile('test.properties')
+                }
             }
             junit '**/target/surefire-reports/TEST-*.xml'
             allure includeProperties: false, jdk: '', resultPolicy: 'LEAVE_AS_IS', results: [[path: 'target/allure-results']]
