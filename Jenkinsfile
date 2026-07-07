@@ -12,7 +12,13 @@ pipeline {
     }
 
     stages {
-        stage('Run test Team one') {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/Owner07/final-work-team-1.git'
+            }
+        }
+
+        stage('Run tests Team one') {
             steps {
                 script {
                     withCredentials([
@@ -22,30 +28,35 @@ pipeline {
                             passwordVariable: 'UI_PASS'
                         )
                     ]) {
-                        git 'https://github.com/Owner07/final-work-team-1.git'
+                        // Создаём файл с credentials
                         sh """
                             cat > test.properties << EOF
                             user=\${UI_USER}
                             password=\${UI_PASS}
                             EOF
+                        """
 
+                        // Запускаем тесты
+                        sh """
                             mvn clean test \\
                                 -Dbrowser=${params.BROWSER} \\
                                 -DsuiteXmlFile=src/test/resources/${params.TESTNG_XML} \\
                                 -DpropertyFile=test.properties
-
-                            rm test.properties
                         """
                     }
                 }
             }
+        }
+    }
 
-            post {
-                always {
-                    junit '**/target/surefire-reports/TEST-*.xml'
-                    allure includeProperties: false, jdk: '', resultPolicy: 'LEAVE_AS_IS', results: [[path: 'target/allure-results']]
-                }
+    post {
+        always {
+            // Удаляем временный файл с паролями (даже если тесты упали)
+            script {
+                sh 'rm -f test.properties || true'
             }
+            junit '**/target/surefire-reports/TEST-*.xml'
+            allure includeProperties: false, jdk: '', resultPolicy: 'LEAVE_AS_IS', results: [[path: 'target/allure-results']]
         }
     }
 }
