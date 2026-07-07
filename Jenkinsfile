@@ -33,19 +33,13 @@ pipeline {
                             passwordVariable: 'DB_PASS'
                         )
                     ]) {
-                        // Создаем файл через Groovy (безопасно!)
-                        def props = """
-username=${UI_USER}
-password=${UI_PASS}
-db.user=${DB_USER}
-db.password=${DB_PASS}
-db.url=jdbc:postgresql://your-db-host:5432/your-db
-api.base.url=http://82.142.167.37:4879
-"""
-                        writeFile file: 'test.properties', text: props
-
-                        // Запускаем тесты
                         sh """
+                            echo "username=${UI_USER}" > test.properties
+                            echo "password=${UI_PASS}" >> test.properties
+                            echo "db.user=${DB_USER}" >> test.properties
+                            echo "db.password=${DB_PASS}" >> test.properties
+                            echo "db.url=jdbc:postgresql://your-db-host:5432/your-db" >> test.properties
+
                             mvn clean test \\
                                 -Dbrowser=${params.BROWSER} \\
                                 -DsuiteXmlFile=src/test/resources/${params.TESTNG_XML} \\
@@ -61,9 +55,7 @@ api.base.url=http://82.142.167.37:4879
     post {
         always {
             script {
-                if (fileExists('test.properties')) {
-                    deleteFile('test.properties')
-                }
+                sh 'rm -f test.properties || true'
             }
             junit '**/target/surefire-reports/TEST-*.xml'
             allure includeProperties: false, jdk: '', resultPolicy: 'LEAVE_AS_IS', results: [[path: 'target/allure-results']]
