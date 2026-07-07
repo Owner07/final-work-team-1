@@ -33,25 +33,22 @@ pipeline {
                             passwordVariable: 'DB_PASS'
                         )
                     ]) {
-                        // Создаем контент файла в Groovy (безопасно)
-                        def propertiesContent = """
-username=${UI_USER}
-password=${UI_PASS}
-db.user=${DB_USER}
-db.password=${DB_PASS}
-db.url=jdbc:postgresql://your-db-host:5432/your-db
-"""
-                        // Записываем файл через Groovy, а не через sh
-                        writeFile file: 'test.properties', text: propertiesContent
+                        sh '''
+                            # Создаем файл без прямой подстановки переменных
+                            cat > test.properties << EOF
+                            username=${UI_USER}
+                            password=${UI_PASS}
+                            db.user=${DB_USER}
+                            db.password=${DB_PASS}
+                            db.url=jdbc:postgresql://your-db-host:5432/your-db
+                            EOF
 
-                        // Запускаем тесты - переменные уже в файле
-                        sh """
                             mvn clean test \\
-                                -Dbrowser=${params.BROWSER} \\
-                                -DsuiteXmlFile=src/test/resources/${params.TESTNG_XML} \\
+                                -Dbrowser=${BROWSER} \\
+                                -DsuiteXmlFile=src/test/resources/${TESTNG_XML} \\
                                 -DpropertyFile=test.properties \\
                                 -Dlogback.configurationFile=src/test/resources/logback-test.xml
-                        """
+                        '''
                     }
                 }
             }
@@ -61,10 +58,7 @@ db.url=jdbc:postgresql://your-db-host:5432/your-db
     post {
         always {
             script {
-                // Удаляем файл через Groovy
-                if (fileExists('test.properties')) {
-                    deleteFile('test.properties')
-                }
+                sh 'rm -f test.properties || true'
             }
             junit '**/target/surefire-reports/TEST-*.xml'
             allure includeProperties: false, jdk: '', resultPolicy: 'LEAVE_AS_IS', results: [[path: 'target/allure-results']]
