@@ -7,7 +7,7 @@ pipeline {
 
     parameters {
         choice(choices: ['chrome', 'edge'], description: 'Выберите браузер', name: 'BROWSER')
-        choice(choices: ['testng.xml', 'testng-full-workflow.xml', 'crossBrowser.xml'],
+        choice(choices: ['testng.xml', 'crossBrowser.xml', 'testng-full-workflow.xml'],
                description: 'Выберите XML файл для запуска', name: 'TESTNG_XML')
     }
 
@@ -17,24 +17,24 @@ pipeline {
                 script {
                     withCredentials([
                         usernamePassword(
-                            credentialsId: 'ui-tests-credentials', // ← Созданные вами
+                            credentialsId: 'ui-tests-credentials',
                             usernameVariable: 'UI_USER',
                             passwordVariable: 'UI_PASS'
-                        ),
+                        )
                     ]) {
                         git 'https://github.com/Owner07/final-work-team-1.git'
-
                         sh """
-                            mvn clean test \
-                                -Dbrowser=${params.BROWSER} \
-                                -DsuiteXmlFile=src/test/resources/${params.TESTNG_XML} \
-                                -Duser=\${UI_USER} \
-                                -Dpassword=\${UI_PASS} \
-                                -Ddb_user=pflb-at-read \
-                                -Ddb_password=\${DB_PASSWORD} \
-                                -Dapi_token=\${API_TOKEN} \
-                                -Dusername=admin@pflb.ru \
-                                -Dpassword=\${ADMIN_PASSWORD}
+                            cat > test.properties << EOF
+                            user=\${UI_USER}
+                            password=\${UI_PASS}
+                            EOF
+
+                            mvn clean test \\
+                                -Dbrowser=${params.BROWSER} \\
+                                -DsuiteXmlFile=src/test/resources/${params.TESTNG_XML} \\
+                                -DpropertyFile=test.properties
+
+                            rm test.properties
                         """
                     }
                 }
