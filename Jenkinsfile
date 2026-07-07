@@ -7,7 +7,7 @@ pipeline {
 
     parameters {
         choice(choices: ['chrome', 'edge'], description: 'Выберите браузер', name: 'BROWSER')
-        choice(choices: ['testng.xml', 'testng-chrome.xml', 'testng-edge.xml', 'testng-smoke.xml', 'testng-regression.xml'],
+        choice(choices: ['testng.xml', 'testng-full-workflow.xml', 'crossBrowser.xml'],
                description: 'Выберите XML файл для запуска', name: 'TESTNG_XML')
     }
 
@@ -15,15 +15,12 @@ pipeline {
         stage('Run test Team one') {
             steps {
                 script {
-                    // ✅ ПРАВИЛЬНО: используем usernamePassword для ваших credentials
                     withCredentials([
-                        // Ваши новые credentials (username + password)
                         usernamePassword(
                             credentialsId: 'ui-tests-credentials', // ← Созданные вами
                             usernameVariable: 'UI_USER',
                             passwordVariable: 'UI_PASS'
                         ),
-                        // Остальные credentials (если есть)
                         string(credentialsId: 'db-password', variable: 'DB_PASSWORD'),
                         string(credentialsId: 'api-token', variable: 'API_TOKEN'),
                         string(credentialsId: 'admin-password', variable: 'ADMIN_PASSWORD')
