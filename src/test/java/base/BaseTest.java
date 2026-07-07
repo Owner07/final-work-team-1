@@ -100,7 +100,7 @@ public class BaseTest {
             log.info("SKIP LOGIN: Test method '{}' has @NoLogin annotation", method.getName());
         } else {
             // По умолчанию - выполняем логин
-            log.info("Login to Start page with creds: user {} and password {}", user, password);
+            log.info("Login to Start page with creds: user {} and password ****", user);
             loginPage.open()
                     .login(user, password)
                     .waitForPageLoaded();
