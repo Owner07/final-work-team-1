@@ -21,9 +21,6 @@ pipeline {
                             usernameVariable: 'UI_USER',
                             passwordVariable: 'UI_PASS'
                         ),
-                        string(credentialsId: 'db-password', variable: 'DB_PASSWORD'),
-                        string(credentialsId: 'api-token', variable: 'API_TOKEN'),
-                        string(credentialsId: 'admin-password', variable: 'ADMIN_PASSWORD')
                     ]) {
                         git 'https://github.com/Owner07/final-work-team-1.git'
 
