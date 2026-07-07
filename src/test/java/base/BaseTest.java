@@ -30,8 +30,8 @@ import java.lang.reflect.Method;
 @Listeners({AllureTestNg.class, ScreenshotListener.class, TestListener.class})
 public class BaseTest {
 
-    private static final String user = PropertyReader.getProperty("user");
-    private static final String password = PropertyReader.getProperty("password1");
+    private static final String user = System.getProperty("user", PropertyReader.getProperty("user"));
+    private static final String password = System.getProperty("password1", PropertyReader.getProperty("password1"));
 
     protected LoginPage loginPage;
     protected CarsPage carsPage;
