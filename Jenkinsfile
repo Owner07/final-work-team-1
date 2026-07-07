@@ -33,30 +33,23 @@ pipeline {
                             passwordVariable: 'DB_PASS'
                         )
                     ]) {
-                        withEnv([
-                            "UI_USER=${UI_USER}",
-                            "UI_PASS=${UI_PASS}",
-                            "DB_USER=${DB_USER}",
-                            "DB_PASS=${DB_PASS}"
-                        ]) {
-                            sh '''
-                                # Создаём файл с credentials (безопасно экранируем)
-                                cat > test.properties << EOF
-                                username=${UI_USER}
-                                password=${UI_PASS}
-                                db.user=${DB_USER}
-                                db.password=${DB_PASS}
-                                db.url=jdbc:postgresql://your-db-host:5432/your-db
-                                EOF
+                        sh """
+                            # Создаём файл с credentials
+                            cat > test.properties << EOF
+                            username=${UI_USER}
+                            password=${UI_PASS}
+                            db.user=${DB_USER}
+                            db.password=${DB_PASS}
+                            db.url=jdbc:postgresql://your-db-host:5432/your-db
+                            EOF
 
-                                # Запускаем тесты
-                                mvn clean test \\
-                                    -Dbrowser=${BROWSER} \\
-                                    -DsuiteXmlFile=src/test/resources/${TESTNG_XML} \\
-                                    -DpropertyFile=test.properties \\
-                                    -Dlogback.configurationFile=src/test/resources/logback-test.xml
-                            '''
-                        }
+                            # Запускаем тесты
+                            mvn clean test \\
+                                -Dbrowser=${params.BROWSER} \\
+                                -DsuiteXmlFile=src/test/resources/${params.TESTNG_XML} \\
+                                -DpropertyFile=test.properties \\
+                                -Dlogback.configurationFile=src/test/resources/logback-test.xml
+                        """
                     }
                 }
             }
