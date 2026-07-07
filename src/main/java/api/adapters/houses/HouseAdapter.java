@@ -16,7 +16,6 @@ public class HouseAdapter extends BaseAdapter {
         return given()
                 .spec(spec)
                 .body(gson.toJson(houseCreateRequest))
-                .log().all()
                 .when()
                 .post()
                 .then()
