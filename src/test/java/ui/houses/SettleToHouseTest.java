@@ -33,7 +33,7 @@ public class SettleToHouseTest extends BaseTest {
     @Owner("Горев Андрей")
     public void settleUserToHouse() {
         loginPage.open();
-             //   .login(user, password);
+                .login(user, password);
 
         // 1. Открыть страницу заселения
         settleToHousePage.openSettleToHouse();
