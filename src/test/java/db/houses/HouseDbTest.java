@@ -1,6 +1,10 @@
 package db.houses;
 
 import db.DbConnection;
+import io.qameta.allure.Owner;
+import io.qameta.allure.Description;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import lombok.extern.log4j.Log4j2;
 import org.testng.ITestContext;
 import org.testng.Assert;
@@ -19,6 +23,9 @@ public class HouseDbTest {
     private static final String UPDATED_PRICE_KEY = "updatedPrice";
 
     @Test(groups = {"step2"}, dependsOnGroups = {"step1"})
+    @Owner("Вейт Владимир")
+    @Description("Проверка в базе данных, что созданный через API дом корректно сохранился со всеми полями (ID, количество этажей, цена)")
+    @Severity(SeverityLevel.CRITICAL)
     public void checkHouseAfterCreate(ITestContext context) throws SQLException {
         int houseIdInt = (int) context.getAttribute(HOUSE_ID_KEY);
         String houseIdStr = String.valueOf(houseIdInt);
@@ -43,6 +50,9 @@ public class HouseDbTest {
     }
 
     @Test(groups = {"step2"}, dependsOnGroups = {"step1"})
+    @Owner("Вейт Владимир")
+    @Description("Проверка в базе данных корректного сохранения количества этажей созданного через API дома")
+    @Severity(SeverityLevel.NORMAL)
     public void checkFloorCountAfterCreate(ITestContext context) throws SQLException {
         int houseIdInt = (int) context.getAttribute(HOUSE_ID_KEY);
         String houseIdStr = String.valueOf(houseIdInt);
@@ -65,6 +75,9 @@ public class HouseDbTest {
     }
 
     @Test(groups = {"step2"}, dependsOnGroups = {"step1"})
+    @Owner("Вейт Владимир")
+    @Description("Проверка в базе данных корректного сохранения цены созданного через API дома")
+    @Severity(SeverityLevel.NORMAL)
     public void checkPriceAfterCreate(ITestContext context) throws SQLException {
         int houseIdInt = (int) context.getAttribute(HOUSE_ID_KEY);
         String houseIdStr = String.valueOf(houseIdInt);
@@ -87,6 +100,9 @@ public class HouseDbTest {
     }
 
     @Test(groups = {"step5"}, dependsOnGroups = {"step4"})
+    @Owner("Вейт Владимир")
+    @Description("Проверка в базе данных корректного обновления количества этажей дома после выполнения API запроса на обновление")
+    @Severity(SeverityLevel.CRITICAL)
     public void checkUpdatedFloorCount(ITestContext context) throws SQLException {
         int houseIdInt = (int) context.getAttribute(HOUSE_ID_KEY);
         String houseIdStr = String.valueOf(houseIdInt);
@@ -109,6 +125,9 @@ public class HouseDbTest {
     }
 
     @Test(groups = {"step5"}, dependsOnGroups = {"step4"})
+    @Owner("Вейт Владимир")
+    @Description("Проверка в базе данных корректного обновления цены дома после выполнения API запроса на обновление")
+    @Severity(SeverityLevel.CRITICAL)
     public void checkUpdatedPrice(ITestContext context) throws SQLException {
         int houseIdInt = (int) context.getAttribute(HOUSE_ID_KEY);
         String houseIdStr = String.valueOf(houseIdInt);
@@ -131,6 +150,9 @@ public class HouseDbTest {
     }
 
     @Test(groups = {"step8"}, dependsOnGroups = {"step7"})
+    @Owner("Вейт Владимир")
+    @Description("Проверка в базе данных, что дом был успешно удален после выполнения API запроса на удаление")
+    @Severity(SeverityLevel.BLOCKER)
     public void checkHouseDeleted(ITestContext context) throws SQLException {
         int houseIdInt = (int) context.getAttribute(HOUSE_ID_KEY);
         String houseIdStr = String.valueOf(houseIdInt);
