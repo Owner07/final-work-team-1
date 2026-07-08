@@ -15,6 +15,7 @@
         <testng.version>7.12.0</testng.version>
         <junit.version>4.13.2</junit.version>
         <junit.jupiter.version>5.10.2</junit.jupiter.version>
+        <junit.platform.version>1.10.2</junit.platform.version>
         <selenium.version>4.44.0</selenium.version>
         <asserj.version>3.27.7</asserj.version>
         <slf4.version>2.0.16</slf4.version>
@@ -66,7 +67,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- JUnit 5 (для DbAddMoneyTest) -->
+        <!-- JUnit 5 (для DbAddMoneyTest) - все версии выровнены -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -77,6 +78,26 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- JUnit Platform - выравниваем версии -->
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-commons</artifactId>
+            <version>${junit.platform.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-engine</artifactId>
+            <version>${junit.platform.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+            <version>${junit.platform.version}</version>
             <scope>test</scope>
         </dependency>
 
