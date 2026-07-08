@@ -10,6 +10,8 @@ import ui.pages.user.PlusMoneyPage;
 import ui.pages.user.UsersPage;
 import base.BaseTest;
 
+import java.time.Duration;
+
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
@@ -20,6 +22,8 @@ public class PlusMoneyTest extends BaseTest {
 
     private final UsersPage usersPage = new UsersPage();
     private final PlusMoneyPage plusMoneyPage = new PlusMoneyPage();
+    private final Duration userIdLoadDuration = Duration.ofMillis(300);
+    private final Duration addMoneyApplyDuration = Duration.ofMillis(100);
 
     @DataProvider(name = "moneyData")
     public Object[][] positiveMoneyData() {
@@ -62,6 +66,11 @@ public class PlusMoneyTest extends BaseTest {
         log.info("Start testAddMoneyWithDataProvider - {}", testData.getDescription());
 
         usersPage.openUsersListPage();
+        try {
+            Thread.sleep(userIdLoadDuration.toMillis());
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         String userId = usersPage.getFirstUserId();
         assertTrue(userId != null && !userId.isEmpty(), "User ID не должен быть пустым");
 
@@ -69,7 +78,7 @@ public class PlusMoneyTest extends BaseTest {
         plusMoneyPage.addMoneyToUser(userId, testData.getAmount());
 
         try {
-            Thread.sleep(100);
+            Thread.sleep(addMoneyApplyDuration.toMillis());
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
@@ -94,10 +103,16 @@ public class PlusMoneyTest extends BaseTest {
         log.info("Start testAddMoneyWithInvalidUserId - {}", testData.getDescription());
 
         plusMoneyPage.openPage();
-        plusMoneyPage.addMoneyToUser(testData.getUserId(), "100");
+        try {
+            Thread.sleep(userIdLoadDuration.toMillis());
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        String userId = testData.getUserId();
+        plusMoneyPage.addMoneyToUser(userId, "100");
 
         try {
-            Thread.sleep(100);
+            Thread.sleep(addMoneyApplyDuration.toMillis());
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
