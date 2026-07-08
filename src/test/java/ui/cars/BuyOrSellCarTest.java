@@ -92,7 +92,7 @@ public class BuyOrSellCarTest extends BaseTest {
     @Severity(SeverityLevel.BLOCKER)
     @TmsLink("CARUI-4")
     @Issue("CARUI-4")
-    @Owner("Алексеев Данил")
+    @Owner("Горев Андрей")
     public void buyCarWithVerification() {
         loginPage.open()
                 .login(user, password);
