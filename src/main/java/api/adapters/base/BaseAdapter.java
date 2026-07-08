@@ -8,11 +8,13 @@ import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
+import lombok.extern.log4j.Log4j2;
 import utils.PropertyReader;
 import static io.restassured.RestAssured.oauth2;
 
 import static io.restassured.RestAssured.given;
 
+@Log4j2
 public class BaseAdapter {
     protected static final String BASE_API_URL = "http://82.142.167.37:4879";
 
@@ -20,6 +22,14 @@ public class BaseAdapter {
             "api_token",
             PropertyReader.getProperty("api_token")
     );
+
+    // Маскируем токен при логировании
+    static {
+        String maskedToken = TOKEN != null && TOKEN.length() > 10 ?
+                TOKEN.substring(0, 10) + "...[MASKED]" :
+                "[NULL]";
+        log.info("Token initialized: {}", maskedToken);
+    }
 
     public static Gson gson = new GsonBuilder()
             .excludeFieldsWithoutExposeAnnotation()

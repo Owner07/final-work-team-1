@@ -1,9 +1,10 @@
-package ui.pages;
+package ui.pages.house;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import ui.dto.NewHouse;
 import lombok.extern.log4j.Log4j2;
+import ui.pages.base.BasePage;
 import ui.wrappers.Input;
 import ui.wrappers.Select;
 

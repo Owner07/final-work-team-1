@@ -1,9 +1,11 @@
-package ui.pages;
+package ui.pages.login;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
+import ui.pages.base.BasePage;
 import ui.wrappers.Input;
 
 import static com.codeborne.selenide.Selectors.byText;
@@ -11,7 +13,7 @@ import static com.codeborne.selenide.Selenide.$;
 
 @Data
 @Log4j2
-public class LoginPage extends BasePage{
+public class LoginPage extends BasePage {
 
     private final SelenideElement goButton = $(byText("GO"));
     private final SelenideElement authorizationTitle = $(byText("Authorization"));
@@ -21,6 +23,7 @@ public class LoginPage extends BasePage{
         return authorizationTitle;
     }
 
+    @Step("Open login page")
     public LoginPage open() {
         log.info("Opening login page");
         Selenide.open("/");
@@ -28,6 +31,7 @@ public class LoginPage extends BasePage{
         return this;
     }
 
+    @Step("Login with user: {user} and password: ****")
     public LoginPage login(String user, String password) {
         // Проверяем, что страница логина открыта
         if (!isPageOpened()) {

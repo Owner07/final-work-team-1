@@ -1,8 +1,9 @@
-package ui.pages;
+package ui.pages.user;
 
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
+import ui.pages.base.BasePage;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;

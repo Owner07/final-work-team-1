@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 import base.BaseTest;
 import utils.UserTestDataFactory;
 import api.models.users.db.UserDbEntity;
-import ui.pages.UsersPage;
+import ui.pages.user.UsersPage;
 import ui.wrappers.TableValue;
 
 import java.math.BigDecimal;

@@ -6,7 +6,6 @@ import db.CarDbClient;
 import db.UsersDbClient;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.testng.ITestResult;
-import ui.pages.*;
 import listeners.ScreenshotListener;
 import listeners.TestListener;
 import services.annotations.NoLogin;
@@ -19,7 +18,11 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
-import ui.pages.HousePage;
+import ui.pages.car.CarsPage;
+import ui.pages.house.HousePage;
+import ui.pages.login.LoginPage;
+import ui.pages.user.ReadUserInfoPage;
+import ui.pages.user.UsersPage;
 import utils.PropertyReader;
 
 import java.lang.reflect.Method;
@@ -28,8 +31,8 @@ import java.lang.reflect.Method;
 @Listeners({AllureTestNg.class, ScreenshotListener.class, TestListener.class})
 public class BaseTest {
 
-    private static final String user = PropertyReader.getProperty("user");
-    private static final String password = PropertyReader.getProperty("password");
+    private static final String user = System.getProperty("user", PropertyReader.getProperty("user"));
+    private static final String password = System.getProperty("password1", PropertyReader.getProperty("password1"));
 
     protected LoginPage loginPage;
     protected CarsPage carsPage;
@@ -62,7 +65,7 @@ public class BaseTest {
         Configuration.timeout = 15000;
         Configuration.baseUrl = "http://82.142.167.37:4881";
         Configuration.clickViaJs = true;
-        Configuration.headless = false;
+        Configuration.headless = true;
 
         // Устанавливаем браузер
         Configuration.browser = browser.toLowerCase();
@@ -104,7 +107,7 @@ public class BaseTest {
             log.info("SKIP LOGIN: Test method '{}' has @NoLogin annotation", method.getName());
         } else {
             // По умолчанию - выполняем логин
-            log.info("Login to Start page with creds: user {} and password {}", user, password);
+            log.info("Login to Start page with creds: user {} and password ****", user);
             loginPage.open()
                     .login(user, password)
                     .waitForPageLoaded();
