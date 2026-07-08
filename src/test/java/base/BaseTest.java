@@ -2,6 +2,7 @@ package base;
 
 import api.adapters.users.UsersAdapter;
 import com.codeborne.selenide.logevents.SelenideLogger;
+import db.CarDbClient;
 import db.UsersDbClient;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.testng.ITestResult;
@@ -40,6 +41,9 @@ public class BaseTest {
     protected UsersPage usersPage;
     protected ReadUserInfoPage readUserInfoPage;
     protected UsersDbClient usersDbClient;
+    protected AllDeletePage allDeletePage;
+    protected AllPostPage allPostPage;
+    protected CarDbClient carDbClient;
 
     @Parameters({"browser"})
     @BeforeMethod(alwaysRun = true, description = "Настройки для драйвера")
@@ -92,6 +96,9 @@ public class BaseTest {
         usersPage = new UsersPage();
         readUserInfoPage = new ReadUserInfoPage();
         usersDbClient = new UsersDbClient();
+        allDeletePage = new AllDeletePage();
+        allPostPage = new AllPostPage();
+        carDbClient = new CarDbClient();
 
         // Проверяем, есть ли аннотация @NoLogin на тестовом методе
         boolean noLogin = method.isAnnotationPresent(NoLogin.class);
