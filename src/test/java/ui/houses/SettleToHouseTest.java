@@ -30,7 +30,7 @@ public class SettleToHouseTest extends BaseTest {
     @Severity(SeverityLevel.BLOCKER)
     @TmsLink("HOUSEUI-1")
     @Issue("HOUSEUI-1")
-    @Owner("Вейт Владимир")
+    @Owner("Горев Андрей")
     public void settleUserToHouse() {
         loginPage.open();
              //   .login(user, password);
