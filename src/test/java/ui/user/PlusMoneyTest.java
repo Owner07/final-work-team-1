@@ -1,16 +1,18 @@
 package ui.user;
 
+import base.BaseTest;
 import io.qameta.allure.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import props.AddMoneyProps;
 import ui.pages.user.PlusMoneyPage;
 import ui.pages.user.UsersPage;
-import base.BaseTest;
+import utils.AddMoneyUtils;
 
-import java.time.Duration;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -22,8 +24,8 @@ public class PlusMoneyTest extends BaseTest {
 
     private final UsersPage usersPage = new UsersPage();
     private final PlusMoneyPage plusMoneyPage = new PlusMoneyPage();
-    private final Duration userIdLoadDuration = Duration.ofMillis(300);
-    private final Duration addMoneyApplyDuration = Duration.ofMillis(100);
+    private final AddMoneyProps props = new AddMoneyProps();
+    private final AtomicReference<String> cachedUserId = new AtomicReference<>();
 
     @DataProvider(name = "moneyData")
     public Object[][] positiveMoneyData() {
@@ -66,23 +68,16 @@ public class PlusMoneyTest extends BaseTest {
         log.info("Start testAddMoneyWithDataProvider - {}", testData.getDescription());
 
         usersPage.openUsersListPage();
-        try {
-            Thread.sleep(userIdLoadDuration.toMillis());
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-        String userId = usersPage.getFirstUserId();
+        String userId = AddMoneyUtils.getCached(
+                cachedUserId,
+                usersPage::getFirstUserId,
+                props.getUserIdLoadDuration(),
+                props.getUserIdLoadRetries());
         assertTrue(userId != null && !userId.isEmpty(), "User ID не должен быть пустым");
 
         plusMoneyPage.openPage();
         plusMoneyPage.addMoneyToUser(userId, testData.getAmount());
-
-        try {
-            Thread.sleep(addMoneyApplyDuration.toMillis());
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-
+        AddMoneyUtils.waitingLoad(props.getAddMoneyApplyDuration());
         String statusText = plusMoneyPage.getStatusText();
         assertEquals(testData.getExpectedResult(), statusText,
                 String.format("Статус должен содержать '%s' для суммы '%s'", testData.getExpectedResult(), testData.getAmount())
@@ -102,21 +97,11 @@ public class PlusMoneyTest extends BaseTest {
     public void testAddMoneyWithInvalidUserId(UserTestData testData) {
         log.info("Start testAddMoneyWithInvalidUserId - {}", testData.getDescription());
 
-        plusMoneyPage.openPage();
-        try {
-            Thread.sleep(userIdLoadDuration.toMillis());
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
         String userId = testData.getUserId();
+
+        plusMoneyPage.openPage();
         plusMoneyPage.addMoneyToUser(userId, "100");
-
-        try {
-            Thread.sleep(addMoneyApplyDuration.toMillis());
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-
+        AddMoneyUtils.waitingLoad(props.getAddMoneyApplyDuration());
         String statusText = plusMoneyPage.getStatusText();
         assertEquals(testData.getExpectedResult(), statusText,
                 String.format("Статус должен содержать '%s' для userID '%s'", testData.getExpectedResult(), testData.getUserId())
