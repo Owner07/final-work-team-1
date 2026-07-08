@@ -20,4 +20,10 @@ public class CarGetRs {
     @SerializedName("price")
     @Expose
     public Integer price;
+    @SerializedName("getId")
+    @Expose
+    public Integer getId;
+    public int getId() {
+        return getId;
+    }
 }
