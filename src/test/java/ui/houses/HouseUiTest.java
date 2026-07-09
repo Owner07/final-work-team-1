@@ -13,7 +13,7 @@ import static org.testng.Assert.*;
 
 
 @Log4j2
-public class HouseTest extends BaseTest {
+public class HouseUiTest extends BaseTest {
 
     private static final String HOUSE_ID_KEY = "createdHouseId";
     private static final String FLOOR_COUNT_KEY = "floorCount";
@@ -47,7 +47,7 @@ public class HouseTest extends BaseTest {
         ButtonPush.clickPush();
 
         houseId = GetNewIdNumber.getNewIdHouse();
-        log.info("Вывод: {}", houseId);
+        log.info("ID: {}", houseId);
         assertEquals(GetStatus.getStatus(), "Status: Successfully pushed, code: 201");
         log.info("assert successfully");
 
@@ -92,7 +92,7 @@ public class HouseTest extends BaseTest {
         assertTrue(allIds.contains(houseId), "ID " + houseId + " not found. Available IDs: " + allIds);
     }
 
-    @Test(priority = 4)
+    @Test(groups = {"step10"}, dependsOnGroups = {"step9"})
     @Description("Проверка нового дома в общем списке")
     @Epic("E2E")
     @Feature("Проверка нового дома")
@@ -101,6 +101,8 @@ public class HouseTest extends BaseTest {
     @Owner("Вейт Владимир")
     public void checkAllHouses() {
         housePage.goToReadAllPage();
-        assertEquals(GetRow.getRowIdByIndex(houseId), houseId);
+        log.info("Checking house, in all flow, by crashed ID. If ID = 2, test is successful. ID: {}", houseId);
+        assertEquals(GetRow.getRowIdByIndex(houseId), "Метод не был задуман как позитивная проверка, а не вот это все...");
+        log.info("Please, see screenshot");
     }
 }

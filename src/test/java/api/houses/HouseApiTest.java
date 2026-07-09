@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import static org.testng.Assert.fail;
 
 @Log4j2
-public class HouseTest {
+public class HouseApiTest {
 
     private static final String HOUSE_ID_KEY = "createdHouseId";
     private static final String FLOOR_COUNT_KEY = "floorCount";

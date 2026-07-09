@@ -14,12 +14,13 @@
                 <include name="step7"/>
                 <include name="step8"/>
                 <include name="step9"/>
+                <include name="step10"/>
             </run>
         </groups>
         <classes>
-            <class name="api.houses.HouseTest"/>
+            <class name="api.houses.HouseApiTest"/>
             <class name="db.houses.HouseDbTest"/>
-            <class name="ui.houses.HouseTest"/>
+            <class name="ui.houses.HouseUiTest"/>
         </classes>
     </test>
 
