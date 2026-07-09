@@ -56,6 +56,27 @@ public class HouseUiTest extends BaseTest {
         context.setAttribute(FLOOR_COUNT_KEY, Integer.parseInt(newHouse.getFloors()));
         context.setAttribute(PRICE_KEY, Integer.parseInt(newHouse.getPrice()));
 
+        log.info("House created successfully UI with ID: {}", houseId);
+    }
+
+    @Test(priority = 1)
+    @Description("Создание нового дома через UI и получение его ID")
+    @Epic("E2E")
+    @Feature("Создание нового дома")
+    @Story("Позитивный сценарий дома")
+    @Severity(SeverityLevel.CRITICAL)
+    @Owner("Вейт Владимир")
+    public void createNewHousesUITestNoSuite(ITestContext context) {
+        housePage.goToCreateNewPage();
+        log.info("New house page is opened.");
+        housePage.createNewHouses(newHouse);
+        log.info("Writing credential");
+        ButtonPush.clickPush();
+
+        houseId = GetNewIdNumber.getNewIdHouse();
+        log.info("ID: {}", houseId);
+        assertEquals(GetStatus.getStatus(), "Status: Successfully pushed, code: 201");
+        log.info("assert is successfully");
         log.info("House created successfully via UI with ID: {}", houseId);
     }
 

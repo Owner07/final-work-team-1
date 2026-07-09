@@ -13,7 +13,13 @@
         <parameter name="browser" value="edge"/>
         <classes>
             <class name="ui.login.LoginTest"/>
-            <class name="ui.houses.HouseUiTest"/>
+            <class name="ui.houses.HouseUiTest">
+                <methods>
+                    <include name="createNewHousesUITestNoSuite"/>
+                    <include name="checkOneHouseStatus"/>
+                    <include name="checkOneHouses"/>
+                </methods>
+            </class>
         </classes>
     </test>
 
