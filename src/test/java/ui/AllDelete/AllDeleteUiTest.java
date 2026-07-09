@@ -18,7 +18,6 @@ import ui.wrappers.*;
 import java.util.Arrays;
 
 import static api.adapters.houses.HouseAdapter.createHouse;
-import static com.codeborne.selenide.Selenide.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class AllDeleteUiTest extends BaseTest {
@@ -33,7 +32,7 @@ public class AllDeleteUiTest extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Owner("Богатыренко Лидия")
     public void deleteUser() {
-        //Предусловие: создать пользователя с помощью api
+        //Предусловие: создать пользователя с помощью api и получаем id созданного пользователя
         UserCreateRequest request = UserCreateRequest.builder()
                 .firstName("ForUI")
                 .secondName("AutoTest")
@@ -41,13 +40,11 @@ public class AllDeleteUiTest extends BaseTest {
                 .sex("MALE")
                 .money(100.0)
                 .build();
-        //Получаем id созданного пользователя
         UserCreateResponse createdUser = usersAdapter.createUserAndGetDto(request);
         Integer createdUserId = createdUser.getId();
-        //заходим на страницу удаления и удаляем дом
-        allDeletePage.openAllDeletePage();
-        switchTo().window(1);
-        //Удаляем пользователя по id на UI и проверяем статус.
+        //заходим на страницу удаления, удаляем пользователя по id и проверяем статус.
+        allDeletePage.openAllDeletePage()
+                .checkAllDeleteOpened();
         InputDelete.deleteItem("user", createdUserId);
         ButtonDelete.clickButtonDelete("user");
         Assert.assertEquals(GetStatusDelete.getStatus("user"), "Status: 204");
@@ -79,8 +76,8 @@ public class AllDeleteUiTest extends BaseTest {
         HouseCreateResponse response = createHouse(request);
         int houseId = response.getId();
         //заходим на страницу удаления и удаляем дом
-        allDeletePage.openAllDeletePage();
-        switchTo().window(1);
+        allDeletePage.openAllDeletePage()
+                .checkAllDeleteOpened();
         InputDelete.deleteItem("house", houseId);
         ButtonDelete.clickButtonDelete("house");
         Assert.assertEquals(GetStatusDelete.getStatus("house"), "Status: 204");
@@ -105,8 +102,8 @@ public class AllDeleteUiTest extends BaseTest {
         var carId = createdCar.id;
         assertThat(carId).isNotNull();
         //заходим на страницу удаления и удаляем авто
-        allDeletePage.openAllDeletePage();
-        switchTo().window(1);
+        allDeletePage.openAllDeletePage()
+                .checkAllDeleteOpened();
         InputDelete.deleteItem("car", carId);
         ButtonDelete.clickButtonDelete("car");
         Assert.assertEquals(GetStatusDelete.getStatus("car"), "Status: 204");

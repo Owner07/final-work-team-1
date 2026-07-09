@@ -22,8 +22,6 @@ import ui.wrappers.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import static com.codeborne.selenide.Selenide.switchTo;
-
 public class AllPostUiTest extends BaseTest {
 
     private final HousePage housePage = new HousePage();
@@ -54,8 +52,8 @@ public class AllPostUiTest extends BaseTest {
     public void checkCreateUser() {
         Integer createdUserId = null;
         try {
-            allPostPage.openAllPostPage();
-            switchTo().window(1);
+            allPostPage.openAllPostPage()
+                    .checkAllPostOpened();
             //создание пользователя и проверка статуса
             allPostPage.fillUserCreateForm("Caitlin", "Clark", 24, "FEMALE", 100500.99)
                     .clickPushInFormCreateUser();
@@ -82,7 +80,7 @@ public class AllPostUiTest extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Owner("Богатыренко Лидия")
     public void addMoneyToUser() {
-        //предусловие: создаём пользователя с помощью api и получаем его id и кол-во денег
+        //предусловие: создаём пользователя с помощью api, получаем его id и кол-во денег
         UserCreateRequest request = UserCreateRequest.builder()
                 .firstName("Auto5")
                 .secondName("Test")
@@ -95,8 +93,8 @@ public class AllPostUiTest extends BaseTest {
         Integer userId = createdUser.getId();
         BigDecimal userMoneyBeforeAdd = BigDecimal.valueOf(createdUser.getMoney());
         //заходим на страницу AllPost к форме добавления денег и заполняем её
-        allPostPage.openAllPostPage();
-        switchTo().window(1);
+        allPostPage.openAllPostPage()
+                .checkAllPostOpened();
         BigDecimal addAmount = BigDecimal.valueOf(12055.01);
         allPostPage.fillAddMoneyToUserForm(userId, addAmount.doubleValue())
                 .clickPushInAddMoneyToUserForm();
@@ -118,8 +116,8 @@ public class AllPostUiTest extends BaseTest {
     public void checkCreateCar() {
         Integer createdCarId = null;
         try {
-            allPostPage.openAllPostPage();
-            switchTo().window(1);
+            allPostPage.openAllPostPage()
+                    .checkAllPostOpened();
             carsPage.addNewCar(car.getEngine(), car.getMark(), car.getModel(), car.getPrice());
             allPostPage.clickPushInFormCreateCar();
             softAssert.assertEquals(allPostPage.getStatusCreateCar(), "Status: Successfully pushed, code: 201");
@@ -152,8 +150,8 @@ public class AllPostUiTest extends BaseTest {
     public void checkCreateHouseInAllPostPage() {
         Integer createdHouseId = null;
         try {
-            allPostPage.openAllPostPage();
-            switchTo().window(1);
+            allPostPage.openAllPostPage()
+                    .checkAllPostOpened();
             //создаём дом и проверяем статус
             housePage.createNewHouses(newHouse);
             ButtonPush.clickPush();
