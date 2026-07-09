@@ -1,4 +1,4 @@
-package db.addMoney;
+package db.user.addMoney;
 
 import base.BaseTest;
 import db.DbConnection;

@@ -18,6 +18,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
+import ui.pages.AllDeletePage;
+import ui.pages.AllPostPage;
 import ui.pages.car.CarsPage;
 import ui.pages.house.HousePage;
 import ui.pages.login.LoginPage;

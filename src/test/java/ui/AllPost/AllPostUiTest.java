@@ -17,7 +17,7 @@ import org.testng.asserts.SoftAssert;
 import ui.dto.Car;
 import ui.dto.CarFactory;
 import ui.dto.NewHouse;
-import ui.pages.HousePage;
+import ui.pages.house.HousePage;
 import ui.wrappers.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
