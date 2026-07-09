@@ -32,7 +32,7 @@ public class HouseTest {
     private static final String UPDATED_FLOOR_COUNT_KEY = "updatedFloorCount";
     private static final String UPDATED_PRICE_KEY = "updatedPrice";
 
-    @Test(groups = {"step1"})
+    @Test
     @Owner("Вейт Владимир")
     @Description("Создание нового дома через API со случайными параметрами (количество этажей, цена, парковочные места)")
     @Severity(SeverityLevel.CRITICAL)

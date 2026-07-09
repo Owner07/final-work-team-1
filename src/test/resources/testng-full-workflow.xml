@@ -19,6 +19,7 @@
         <classes>
             <class name="api.houses.HouseTest"/>
             <class name="db.houses.HouseDbTest"/>
+            <class name="ui.houses.HouseTest"/>
         </classes>
     </test>
 

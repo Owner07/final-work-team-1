@@ -4,6 +4,7 @@ import com.github.javafaker.Faker;
 import ui.dto.NewHouse;
 import io.qameta.allure.*;
 import lombok.extern.log4j.Log4j2;
+import org.testng.ITestContext;
 import org.testng.annotations.Test;
 import base.BaseTest;
 import ui.wrappers.*;
@@ -13,6 +14,10 @@ import static org.testng.Assert.*;
 
 @Log4j2
 public class HouseTest extends BaseTest {
+
+    private static final String HOUSE_ID_KEY = "createdHouseId";
+    private static final String FLOOR_COUNT_KEY = "floorCount";
+    private static final String PRICE_KEY = "price";
 
     String houseId = "2";
 
@@ -26,6 +31,33 @@ public class HouseTest extends BaseTest {
             .hasColdBut(String.valueOf(faker.number().numberBetween(1, 11)))
             .hasColdNot(String.valueOf(faker.number().numberBetween(1, 11)))
             .build();
+
+    @Test(groups = {"step1"})
+    @Description("Создание нового дома через UI и получение его ID")
+    @Epic("E2E")
+    @Feature("Создание нового дома")
+    @Story("Позитивный сценарий дома")
+    @Severity(SeverityLevel.CRITICAL)
+    @Owner("Вейт Владимир")
+    public void createNewHousesUITest(ITestContext context) {
+        housePage.goToCreateNewPage();
+        log.info("Creating new house page is opened.");
+        housePage.createNewHouses(newHouse);
+        log.info("Input credential");
+        ButtonPush.clickPush();
+
+        houseId = GetNewIdNumber.getNewIdHouse();
+        log.info("Вывод: {}", houseId);
+        assertEquals(GetStatus.getStatus(), "Status: Successfully pushed, code: 201");
+        log.info("assert successfully");
+
+        // Сохраняем в контекст для API и DB тестов
+        context.setAttribute(HOUSE_ID_KEY, Integer.parseInt(houseId));
+        context.setAttribute(FLOOR_COUNT_KEY, Integer.parseInt(newHouse.getFloors()));
+        context.setAttribute(PRICE_KEY, Integer.parseInt(newHouse.getPrice()));
+
+        log.info("House created successfully via UI with ID: {}", houseId);
+    }
 
     @Test(priority = 2)
     @Description("Получение статуса успешно по ID дома")
@@ -57,26 +89,7 @@ public class HouseTest extends BaseTest {
         log.info("All IDs found this: {}", allIds);
         assertFalse(allIds.isEmpty(), "Table is empty or column not found");
         log.info("assert no empty successfully");
-        assertTrue(allIds.contains(houseId), "ID " + houseId + "not found. Available IDs: " + allIds);
-    }
-
-    @Test(priority = 1)
-    @Description("Создание нового жилища и получение его ID")
-    @Epic("E2E")
-    @Feature("Создание нового дома")
-    @Story("Позитивный сценарий дома")
-    @Severity(SeverityLevel.CRITICAL)
-    @Owner("Вейт Владимир")
-    public void createNewHouses() {
-        housePage.goToCreateNewPage();
-        log.info("Creating new house page is opened.");
-        housePage.createNewHouses(newHouse);
-        log.info("Input credential");
-        ButtonPush.clickPush();
-        log.info("Вывод:{} ", GetNewIdNumber.getNewIdHouse());
-        houseId = GetNewIdNumber.getNewIdHouse();
-        assertEquals(GetStatus.getStatus(), "Status: Successfully pushed, code: 201");
-        log.info("assert successfully");
+        assertTrue(allIds.contains(houseId), "ID " + houseId + " not found. Available IDs: " + allIds);
     }
 
     @Test(priority = 4)
