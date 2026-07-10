@@ -11,12 +11,14 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import props.AddMoneyProps;
 import ui.pages.user.UsersPage;
+import utils.AddMoneyUtils;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.Duration;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Log4j2
 @Epic("PFLB Test-API")
@@ -24,8 +26,9 @@ import java.util.Map;
 public class DbAddMoneyTest extends BaseTest {
 
     private final UsersPage usersPage = new UsersPage();
-    private final Duration userIdLoadDuration = Duration.ofMillis(300);
     private HouseDbConnection dbConnection;
+    private final AddMoneyProps props = new AddMoneyProps();
+    private final AtomicReference<Map<String, String>> cachedUserData = new AtomicReference<>();
 
     @BeforeTest
     public void beforeTest() {
@@ -41,7 +44,15 @@ public class DbAddMoneyTest extends BaseTest {
         String dbId = null;
         String dbMoney = null;
 
-        String sql = "SELECT id, money FROM public.person LIMIT 1";
+        String sql = """
+                SELECT
+                	id,
+                	CASE
+                        WHEN money - TRUNC(money) = 0 THEN TRUNC(money)::TEXT
+                        ELSE TO_CHAR(money, 'FM9999999999999999990.99')
+                    END AS money
+                FROM public.person;
+                """;
         try (ResultSet rs = dbConnection.select(sql)) {
             if (rs.next()) {
                 dbId = String.valueOf(rs.getInt("id"));
@@ -53,19 +64,18 @@ public class DbAddMoneyTest extends BaseTest {
         // 2. Переход на UI страницу
         usersPage.openUsersListPage();
 
-        try {
-            Thread.sleep(userIdLoadDuration.toMillis());
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-
         // 3. Получение данных с UI
-        Map<String, String> uiUserData = usersPage.getRowDataById(dbId);
+        String finalDbId = dbId;
+        Map<String, String> uiUserData = AddMoneyUtils.getCached(
+                cachedUserData,
+                () -> usersPage.getRowDataById(finalDbId),
+                props.getUserIdLoadDuration(),
+                props.getUserIdLoadRetries());
         String uiId = uiUserData.getOrDefault("ID", "NoIdValue");
         String uiMoney = uiUserData.getOrDefault("Money", "NoMoneyValue");
 
         // 4. Проверка
-        SoftAssert soft =  new SoftAssert();
+        SoftAssert soft = new SoftAssert();
         soft.assertEquals(uiId, dbId);
         soft.assertEquals(uiMoney, dbMoney);
         soft.assertAll();

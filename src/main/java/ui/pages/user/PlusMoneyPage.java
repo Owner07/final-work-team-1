@@ -28,10 +28,11 @@ public class PlusMoneyPage extends BasePage {
     }
 
     @Step("Открыть страницу пополнения баланса")
-    public void openPage() {
+    public PlusMoneyPage openPage() {
         log.info("Opening Plus Money page: {}", PLUS_MONEY_URL);
         open(PLUS_MONEY_URL);
         waitForPageLoaded();
+        return this;
     }
 
     @Step("Ввести ID пользователя: {userId}")
