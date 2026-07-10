@@ -9,12 +9,11 @@ import ui.pages.base.BasePage;
 import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class AllPostPage extends BasePage {
 
-    private final SelenideElement allPostMenuButton = $(byText("All POST"));
+    private static final String ALL_POST_URL = "/#/create/all";
     private final SelenideElement floorInput = $("#floor_send");
 
     @Override
@@ -22,8 +21,15 @@ public class AllPostPage extends BasePage {
         return floorInput;
     }
 
+    @Step("Открытие страницы ALL POST")
     public AllPostPage openAllPostPage() {
-        allPostMenuButton.shouldBe(visible, enabled).click();
+        open(ALL_POST_URL);
+        return this;
+    }
+
+    @Step("Проверка, что страница ALL POST открыта")
+    public AllPostPage checkAllPostOpened() {
+        waitForPageLoaded();
         return this;
     }
 
@@ -47,7 +53,7 @@ public class AllPostPage extends BasePage {
     }
 
     @Step ("Нажатие на кнопку PUSH TO API в форме создания пользователя")
-            public AllPostPage clickPushInFormCreateUser() {
+    public AllPostPage clickPushInFormCreateUser() {
         getUserCreateForm().$("button.tableButton.btn-primary")
                 .shouldHave(text("PUSH TO API"))
                 .click();

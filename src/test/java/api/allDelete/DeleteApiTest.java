@@ -57,9 +57,9 @@ public class DeleteApiTest {
     @Severity(SeverityLevel.CRITICAL)
     @Owner("Богатыренко Лидия")
     public void checkDeleteHouse() {
-        //Предисловие: создание дома с помощью api и получение его id
+        //Предусловие: создание дома с помощью api и получение его id
         HouseCreateRequest request = HouseCreateRequest.builder()
-        .floorCount(5)
+                .floorCount(5)
                 .parkingPlaces(Arrays.asList(
                         HouseCreateRequest.ParkingPlace.builder()
                                 .isCovered(true)
@@ -90,13 +90,13 @@ public class DeleteApiTest {
     @Severity(SeverityLevel.CRITICAL)
     @Owner("Богатыренко Лидия")
     public void checkDeleteCar() {
-        //Предисловие: создать авто
+        //Предусловие: создать авто
         var carCreateRequest = CarCreateRq.builder()
                 .engineType("Gasoline")
                 .mark("Audi")
                 .model("A1")
                 .price(12948)
-                        .build();
+                .build();
         var createdCar = CarAdapter.createCar(carCreateRequest);
         var carId = createdCar.id;
         assertThat(carId).isNotNull();
