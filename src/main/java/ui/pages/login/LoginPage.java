@@ -24,7 +24,7 @@ public class LoginPage extends BasePage {
         return authorizationTitle;
     }
 
-    @Description("Метод логирования без чувствительных данных в алюре")
+    @Step("Login with username: {0} and password: [SECRET]")
     public LoginPage open() {
         log.info("Opening login page");
         Selenide.open("/");
