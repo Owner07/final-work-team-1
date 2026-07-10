@@ -16,11 +16,9 @@ import java.time.Duration;
 
 public class SettleToHouseTest extends BaseTest {
 
-    private static final String user = PropertyReader.getProperty("user");
-    private static final String password = PropertyReader.getProperty("password1");
 
     // Инициализация страницы заселения
-    SettleToHousePage settleToHousePage = new SettleToHousePage();
+   protected SettleToHousePage settleToHousePage = new SettleToHousePage();
 
     @Test
     @Description("Проверка заселения пользователя в дом с верификацией через UI/API")
@@ -33,7 +31,6 @@ public class SettleToHouseTest extends BaseTest {
     @Owner("Горев Андрей")
     public void settleUserToHouse() {
         loginPage.open();
-                .login(user, password);
 
         // 1. Открыть страницу заселения
         settleToHousePage.openSettleToHouse();
@@ -50,7 +47,8 @@ public class SettleToHouseTest extends BaseTest {
                 "Статус не соответствует ожидаемому");
 
         // 4. Проверить, что house_id у пользователя изменился через API
-        UserInfoResponse userFromApi = UsersAdapter.getUserInfoById(1);
+        UsersAdapter usersAdapter = new UsersAdapter();
+        UserInfoResponse userFromApi = usersAdapter.getUserInfoById(1);
         assertNotNull(userFromApi.getHouse(), "house_id не должен быть null после заселения");
         assertEquals(userFromApi.getHouse(), Integer.valueOf(2), "house_id не изменился на ожидаемый");
     }

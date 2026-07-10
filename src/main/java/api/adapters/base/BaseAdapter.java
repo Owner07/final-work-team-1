@@ -27,7 +27,7 @@ public class BaseAdapter {
             .create();
 
 //обычный GET без токена
-    protected static RequestSpecification baseRequest() {
+    protected RequestSpecification baseRequest() {
         return given()
                 .baseUri(BASE_API_URL)
                 .accept("application/json");

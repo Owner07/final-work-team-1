@@ -29,10 +29,11 @@ public class SettleToHousePage extends BasePage {
         return this;
     }
 
-    public void settleUser(String userId, String houseId) {
+    public SettleToHousePage settleUser(String userId, String houseId) {
         writeById("id_send", userId);
         writeById("house_send", houseId);
         selectRadioByName("settleOrEvict", "settle"); // Проверьте имя радио-кнопки в UI
         pushToAPI.click();
+        return this;
     }
 }

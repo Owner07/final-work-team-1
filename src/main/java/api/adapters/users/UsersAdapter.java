@@ -64,7 +64,7 @@ public class UsersAdapter extends BaseAdapter {
     }
 
     @Step("Получить пользователя с машинами GET /user/{userId}/info")
-    public static UserInfoResponse getUserInfoById(Integer userId) {
+    public UserInfoResponse getUserInfoById(Integer userId) {
         log.info("GET {} userId={}", USER_INFO_BY_ID, userId);
 
         return baseRequest()
