@@ -9,7 +9,7 @@ import api.models.users.create.UserCreateResponse;
 import api.models.users.db.UserDbEntity;
 import base.BaseTest;
 import com.github.javafaker.Faker;
-import db.CarDbClient;
+import db.cars.CarDbClient;
 import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;

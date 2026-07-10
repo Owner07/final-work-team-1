@@ -1,4 +1,4 @@
-package db;
+package db.house;
 
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
@@ -7,7 +7,7 @@ import utils.PropertyReader;
 import java.sql.*;
 
 @Log4j2
-public class DbConnection {
+public class HouseDbConnection {
 
     private final String USER = System.getProperty("db_user", PropertyReader.getProperty("db_user"));
     private final String PASSWORD = System.getProperty("db_password", PropertyReader.getProperty("db_password"));
@@ -40,19 +40,6 @@ public class DbConnection {
         public void insert (String query){
             try {
                 statement.execute(query);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        public void insertPrepared (){
-            try {
-                PreparedStatement preparedStatement = connection.prepareStatement(
-                        "INSERT INTO () VALUES (?)"
-                );
-//                preparedStatement.setInt(1, );
-                preparedStatement.executeUpdate();
-                preparedStatement.close();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }

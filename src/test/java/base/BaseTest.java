@@ -2,8 +2,8 @@ package base;
 
 import api.adapters.users.UsersAdapter;
 import com.codeborne.selenide.logevents.SelenideLogger;
-import db.CarDbClient;
-import db.UsersDbClient;
+import db.cars.CarDbClient;
+import db.user.UsersDbClient;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.testng.ITestResult;
 import listeners.ScreenshotListener;

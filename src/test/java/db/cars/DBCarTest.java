@@ -1,6 +1,6 @@
 package db.cars;
 
-import db.DbConnection;
+import db.house.HouseDbConnection;
 import io.qameta.allure.*;
 import org.junit.Test;
 import java.sql.ResultSet;
@@ -18,7 +18,7 @@ public class DBCarTest {
     @Issue("CARBD-1")
     @Owner("Алексеев Данил")
     public void getTables() throws SQLException {
-        DbConnection db = new DbConnection();
+        HouseDbConnection db = new HouseDbConnection();
         db.connect();
         ResultSet rs = db.select("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'");
         System.out.println("Список таблиц:");
@@ -39,7 +39,7 @@ public class DBCarTest {
     @Issue("CARBD-2")
     @Owner("Алексеев Данил")
     public void getColumnsCar() throws SQLException {
-        DbConnection db = new DbConnection();
+        HouseDbConnection db = new HouseDbConnection();
         db.connect();
         ResultSet rs = db.select(
                 "SELECT column_name, data_type, is_nullable " +
@@ -64,7 +64,7 @@ public class DBCarTest {
     @Issue("CARBD-3")
     @Owner("Алексеев Данил")
     public void getCarDB() throws SQLException {
-        DbConnection db = new DbConnection();
+        HouseDbConnection db = new HouseDbConnection();
         db.connect();
         ResultSet rs = db.select("SELECT * FROM car ORDER BY id DESC LIMIT 1");
         while (rs.next()) {

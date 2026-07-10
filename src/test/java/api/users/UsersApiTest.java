@@ -1,7 +1,7 @@
 package api.users;
 
 import api.adapters.users.UsersAdapter;
-import db.UsersDbClient;
+import db.user.UsersDbClient;
 import io.qameta.allure.*;
 import lombok.extern.log4j.Log4j2;
 import api.models.users.create.UserCreateRequest;

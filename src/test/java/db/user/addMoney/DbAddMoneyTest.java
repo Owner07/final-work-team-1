@@ -1,7 +1,7 @@
 package db.user.addMoney;
 
 import base.BaseTest;
-import db.DbConnection;
+import db.house.HouseDbConnection;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -25,11 +25,11 @@ public class DbAddMoneyTest extends BaseTest {
 
     private final UsersPage usersPage = new UsersPage();
     private final Duration userIdLoadDuration = Duration.ofMillis(300);
-    private DbConnection dbConnection;
+    private HouseDbConnection dbConnection;
 
     @BeforeTest
     public void beforeTest() {
-        dbConnection = new DbConnection();
+        dbConnection = new HouseDbConnection();
         dbConnection.connect();
     }
 

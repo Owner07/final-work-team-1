@@ -1,4 +1,4 @@
-package db.houses;
+package db.house;
 
 public class HousesSql {
 

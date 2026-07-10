@@ -23,7 +23,7 @@ public class BaseAdapter {
             PropertyReader.getProperty("api_token")
     );
 
-    // Маскируем токен при логировании
+    // Маскируем токен при логировании инициализации
     static {
         String maskedToken = TOKEN != null && TOKEN.length() > 10 ?
                 TOKEN.substring(0, 10) + "...[MASKED]" :

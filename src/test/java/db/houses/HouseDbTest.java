@@ -1,6 +1,7 @@
 package db.houses;
 
-import db.DbConnection;
+import db.house.HouseDbConnection;
+import db.house.HousesSql;
 import io.qameta.allure.Owner;
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
@@ -32,7 +33,7 @@ public class HouseDbTest {
         int expectedFloorCount = (int) context.getAttribute(FLOOR_COUNT_KEY);
         int expectedPrice = (int) context.getAttribute(PRICE_KEY);
         log.info("Checking house in DB after create - ID: {}", houseIdStr);
-        DbConnection db = new DbConnection();
+        HouseDbConnection db = new HouseDbConnection();
         db.connect();
         ResultSet resultSet = db.select(HousesSql.selectHouseById(houseIdStr));
 
@@ -59,7 +60,7 @@ public class HouseDbTest {
         int expectedFloorCount = (int) context.getAttribute(FLOOR_COUNT_KEY);
         log.info("Checking floor count in DB after create - ID: {}, expected: {}",
                 houseIdStr, expectedFloorCount);
-        DbConnection db = new DbConnection();
+        HouseDbConnection db = new HouseDbConnection();
         db.connect();
         ResultSet resultSet = db.select(HousesSql.selectHouseById(houseIdStr));
         boolean found = false;
@@ -84,7 +85,7 @@ public class HouseDbTest {
         int expectedPrice = (int) context.getAttribute(PRICE_KEY);
         log.info("Checking price in DB after create - ID: {}, expected: {}",
                 houseIdStr, expectedPrice);
-        DbConnection db = new DbConnection();
+        HouseDbConnection db = new HouseDbConnection();
         db.connect();
         ResultSet resultSet = db.select(HousesSql.selectHouseById(houseIdStr));
         boolean found = false;
@@ -109,7 +110,7 @@ public class HouseDbTest {
         int expectedFloorCount = (int) context.getAttribute(UPDATED_FLOOR_COUNT_KEY);
         log.info("Checking updated floor count in DB - ID: {}, expected: {}",
                 houseIdStr, expectedFloorCount);
-        DbConnection db = new DbConnection();
+        HouseDbConnection db = new HouseDbConnection();
         db.connect();
         ResultSet resultSet = db.select(HousesSql.selectHouseById(houseIdStr));
         boolean found = false;
@@ -134,7 +135,7 @@ public class HouseDbTest {
         int expectedPrice = (int) context.getAttribute(UPDATED_PRICE_KEY);
         log.info("Checking updated price in DB - ID: {}, expected: {}",
                 houseIdStr, expectedPrice);
-        DbConnection db = new DbConnection();
+        HouseDbConnection db = new HouseDbConnection();
         db.connect();
         ResultSet resultSet = db.select(HousesSql.selectHouseById(houseIdStr));
         boolean found = false;
@@ -157,7 +158,7 @@ public class HouseDbTest {
         int houseIdInt = (int) context.getAttribute(HOUSE_ID_KEY);
         String houseIdStr = String.valueOf(houseIdInt);
         log.info("Checking house deleted from DB - ID: {}", houseIdStr);
-        DbConnection db = new DbConnection();
+        HouseDbConnection db = new HouseDbConnection();
         db.connect();
         ResultSet resultSet = db.select(HousesSql.selectHouseById(houseIdStr));
 

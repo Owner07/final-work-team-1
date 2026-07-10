@@ -1,6 +1,7 @@
-package db;
+package db.cars;
 
 import api.models.cars.db.CarDbEntity;
+import db.house.HouseDbConnection;
 import io.qameta.allure.Step;
 
 import java.sql.PreparedStatement;
@@ -15,7 +16,7 @@ public class CarDbClient {
             WHERE id = ?
             """;
 
-        DbConnection dbConnection = new DbConnection();
+        HouseDbConnection dbConnection = new HouseDbConnection();
         dbConnection.connect();
 
         try (PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql)) {
@@ -47,7 +48,7 @@ public class CarDbClient {
     public int getEngineTypeIdByName(String typeName) {
         String sql = "SELECT id FROM engine_type WHERE type_name = ?";
 
-        DbConnection dbConnection = new DbConnection();
+        HouseDbConnection dbConnection = new HouseDbConnection();
         dbConnection.connect();
 
         try (PreparedStatement stmt = dbConnection.getConnection().prepareStatement(sql)) {

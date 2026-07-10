@@ -1,5 +1,6 @@
-package db;
+package db.user;
 
+import db.house.HouseDbConnection;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import api.models.users.db.UserDbEntity;
@@ -20,7 +21,7 @@ public class UsersDbClient {
 
         log.info("Execute SQL: {} userId={}", sql, userId);
 
-        DbConnection dbConnection = new DbConnection();
+        HouseDbConnection dbConnection = new HouseDbConnection();
         dbConnection.connect();
 
         try (PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql)) {
@@ -63,7 +64,7 @@ public class UsersDbClient {
 
         log.info("Execute SQL: {}", sql);
 
-        DbConnection dbConnection = new DbConnection();
+        HouseDbConnection dbConnection = new HouseDbConnection();
         dbConnection.connect();
 
         try (PreparedStatement statement = dbConnection.getConnection().prepareStatement(sql);

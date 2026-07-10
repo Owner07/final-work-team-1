@@ -9,7 +9,7 @@ import api.models.users.create.UserCreateRequest;
 import api.models.users.create.UserCreateResponse;
 import api.models.users.db.UserDbEntity;
 import base.BaseTest;
-import db.UsersDbClient;
+import db.user.UsersDbClient;
 import io.qameta.allure.*;
 
 import org.testng.Assert;

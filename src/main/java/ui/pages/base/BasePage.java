@@ -9,10 +9,8 @@ import static com.codeborne.selenide.Condition.visible;
 
 @Log4j2
 public abstract class BasePage {
-
     // Абстрактный метод - каждая страница должна указать свой уникальный элемент
     protected abstract SelenideElement getUniqueElement();
-
     // Ожидание загрузки страницы
     public BasePage waitForPageLoaded() {
         log.info("Waiting for page to load: {}", this.getClass().getSimpleName());
@@ -24,7 +22,6 @@ public abstract class BasePage {
         }
         return this;
     }
-
     // Проверка открыта ли страница
     public boolean isPageOpened() {
         try {
