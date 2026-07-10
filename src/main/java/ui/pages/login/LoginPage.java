@@ -33,7 +33,6 @@ public class LoginPage extends BasePage {
         return this;
     }
 
-    @Step("Login with user: {user} and password: ****")
     public LoginPage login(String user, String password) {
         // Проверяем, что страница логина открыта
         if (!isPageOpened()) {
