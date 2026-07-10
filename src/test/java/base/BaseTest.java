@@ -68,7 +68,6 @@ public class BaseTest {
         Configuration.baseUrl = "http://82.142.167.37:4881";
         Configuration.clickViaJs = true;
         Configuration.headless = true;
-
         // Устанавливаем браузер
         Configuration.browser = browser.toLowerCase();
 

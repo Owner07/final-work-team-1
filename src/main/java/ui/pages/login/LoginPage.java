@@ -2,6 +2,7 @@ package ui.pages.login;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Description;
 import io.qameta.allure.Step;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
@@ -23,7 +24,7 @@ public class LoginPage extends BasePage {
         return authorizationTitle;
     }
 
-    @Step("Open login page")
+    @Description("Метод логирования без чувствительных данных в алюре")
     public LoginPage open() {
         log.info("Opening login page");
         Selenide.open("/");
