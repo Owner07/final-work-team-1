@@ -2,8 +2,9 @@ package ui.pages.login;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import io.qameta.allure.Description;
+import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.Step;
+import io.qameta.allure.selenide.AllureSelenide;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import ui.pages.base.BasePage;
@@ -24,7 +25,7 @@ public class LoginPage extends BasePage {
         return authorizationTitle;
     }
 
-    @Step("Login with username: {0} and password: [SECRET]")
+    @Step("Open login page")
     public LoginPage open() {
         log.info("Opening login page");
         Selenide.open("/");
@@ -41,10 +42,24 @@ public class LoginPage extends BasePage {
             throw new IllegalStateException("Login page is not opened. Cannot perform login.");
         }
         log.info("Logging in with user: {}", user);
-        Input.writeLogin("email", user);
-        Input.writeLogin("password", password);
-        goButton.click();
-        Selenide.confirm();
+
+        // Отключаем логирование Selenide
+        SelenideLogger.removeListener("AllureSelenide");
+
+        try {
+            Input.writeLogin("email", user);
+            Input.writeLogin("password", password);
+            goButton.click();
+            Selenide.confirm();
+        } finally {
+            // Включаем логирование обратно
+            SelenideLogger.addListener("AllureSelenide",
+                    new AllureSelenide()
+                            .screenshots(true)
+                            .savePageSource(true)
+                            .includeSelenideSteps(true));
+        }
+
         return this;
     }
 }
