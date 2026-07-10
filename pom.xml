@@ -15,7 +15,8 @@
 
         <!-- Test Frameworks -->
         <testng.version>7.12.0</testng.version>
-        <junit.version>5.10.2</junit.version>
+        <junit4.version>4.13.2</junit4.version>
+        <junit5.version>5.10.2</junit5.version>
 
         <!-- Selenium & Selenide -->
         <selenium.version>4.44.0</selenium.version>
@@ -67,11 +68,19 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- JUnit 5 (для тестов в папке db) -->
+        <!-- JUnit 4 (для DBCarTest.java) -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit4.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- JUnit 5 (для DbAddMoneyTest.java) -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>${junit.version}</version>
+            <version>${junit5.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -211,6 +220,12 @@
                     <dependency>
                         <groupId>org.apache.maven.surefire</groupId>
                         <artifactId>surefire-junit-platform</artifactId>
+                        <version>3.5.5</version>
+                    </dependency>
+                    <!-- Провайдер для JUnit 4 (нужен для совместимости) -->
+                    <dependency>
+                        <groupId>org.apache.maven.surefire</groupId>
+                        <artifactId>surefire-junit4</artifactId>
                         <version>3.5.5</version>
                     </dependency>
                 </dependencies>
